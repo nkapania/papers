@@ -1,12 +1,12 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.6.20)  20 JUN 2018 15:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.8.1)  2 OCT 2018 09:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **manuscript.tex
-(/home/nkapania/Desktop/research/papers/journal/VSD2014/manuscript.tex
+(/home/nkapania/papers/journal/VSD2014/manuscript.tex
 LaTeX2e <2016/02/01>
 Babel <3.9q> and hyphenation patterns for 3 language(s) loaded.
-(/home/nkapania/Desktop/research/papers/journal/VSD2014/nVSD2e.cls
+(/home/nkapania/papers/journal/VSD2014/nVSD2e.cls
 Document Class: nVSD2e 2014/10/27 v4.0 Vehicle System Dynamics LaTeX2e document
  class
 \draftrule=\dimen102
@@ -297,7 +297,7 @@ Package: subfigure 2002/03/15 v2.1.5 subfigure package
 \c@definition=\count109
 \c@remark=\count110
 
-(/home/nkapania/Desktop/research/papers/journal/VSD2014/manuscript.aux)
+(/home/nkapania/papers/journal/VSD2014/manuscript.aux)
 \openout1 = `manuscript.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
@@ -460,8 +460,7 @@ Overfull \vbox (29.0pt too high) has occurred while \output is active []
 Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 
-[3 </home/nkapania/Desktop/research/papers/journal/VSD2014/figures/FB_FFW.png>]
-
+[3 </home/nkapania/papers/journal/VSD2014/figures/FB_FFW.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -471,8 +470,7 @@ Overfull \vbox (29.0pt too high) has occurred while \output is active []
 Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 
-[4 </home/nkapania/Desktop/research/papers/journal/VSD2014/figures/BikeModelSch
-ematic.png>]
+[4 </home/nkapania/papers/journal/VSD2014/figures/BikeModelSchematic.png>]
 Underfull \vbox (badness 2253) has occurred while \output is active []
 
 
@@ -487,11 +485,11 @@ Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 [5]
 Package epstopdf Info: Source file: <figures/FrontRearTireCurves.eps>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 79131 bytes
 (epstopdf)             Output file: <figures/FrontRearTireCurves-eps-converted-
 to.pdf>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 163568 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/FrontRearTireCurve
 s-eps-converted-to.pdf figures/FrontRearTireCurves.eps>
@@ -523,15 +521,15 @@ Overfull \vbox (29.0pt too high) has occurred while \output is active []
 Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 
-[6 </home/nkapania/Desktop/research/papers/journal/VSD2014/figures/FrontRearTir
-eCurves-eps-converted-to.pdf> </home/nkapania/Desktop/research/papers/journal/V
-SD2014/figures/LookaheadSchematic.png>]
+[6 </home/nkapania/papers/journal/VSD2014/figures/FrontRearTireCurves-eps-conve
+rted-to.pdf> </home/nkapania/papers/journal/VSD2014/figures/LookaheadSchematic.
+png>]
 Package epstopdf Info: Source file: <figures/LinearErrorPlot.eps>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 15623 bytes
 (epstopdf)             Output file: <figures/LinearErrorPlot-eps-converted-to.p
 df>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 6407 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/LinearErrorPlot-ep
 s-converted-to.pdf figures/LinearErrorPlot.eps>
@@ -575,14 +573,14 @@ Overfull \vbox (29.0pt too high) has occurred while \output is active []
 Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 
-[8 </home/nkapania/Desktop/research/papers/journal/VSD2014/figures/LinearErrorP
-lot-eps-converted-to.pdf>]
+[8 </home/nkapania/papers/journal/VSD2014/figures/LinearErrorPlot-eps-converted
+-to.pdf>]
 Package epstopdf Info: Source file: <figures/LinearErrorPlotBeta.eps>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 13503 bytes
 (epstopdf)             Output file: <figures/LinearErrorPlotBeta-eps-converted-
 to.pdf>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 6893 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/LinearErrorPlotBet
 a-eps-converted-to.pdf figures/LinearErrorPlotBeta.eps>
@@ -606,15 +604,14 @@ Overfull \vbox (29.0pt too high) has occurred while \output is active []
 Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 
-[9 </home/nkapania/Desktop/research/papers/journal/VSD2014/figures/SSerror.png>
- </home/nkapania/Desktop/research/papers/journal/VSD2014/figures/LinearErrorPlo
-tBeta-eps-converted-to.pdf>]
+[9 </home/nkapania/papers/journal/VSD2014/figures/SSerror.png> </home/nkapania/
+papers/journal/VSD2014/figures/LinearErrorPlotBeta-eps-converted-to.pdf>]
 
 LaTeX Warning: File `figures/rLocus.eps' not found on input line 446.
 
 Package epstopdf Info: Source file: <figures/rLocus.eps>
 (epstopdf)             Output file: <figures/rLocus-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 14895 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/rLocus-eps-convert
 ed-to.pdf figures/rLocus.eps>
@@ -628,10 +625,10 @@ Package pdftex.def Info: figures/rLocus-eps-converted-to.pdf used on input line
  446.
 (pdftex.def)             Requested size: 231.00128pt x 367.24074pt.
 Package epstopdf Info: Source file: <figures/VcrPlot.eps>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 18021 bytes
 (epstopdf)             Output file: <figures/VcrPlot-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 7759 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/VcrPlot-eps-conver
 ted-to.pdf figures/VcrPlot.eps>
@@ -659,8 +656,8 @@ Overfull \vbox (29.0pt too high) has occurred while \output is active []
 Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 
-[10 </home/nkapania/Desktop/research/papers/journal/VSD2014/figures/rLocus-eps-
-converted-to.pdf>]
+[10 </home/nkapania/papers/journal/VSD2014/figures/rLocus-eps-converted-to.pdf>
+]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -670,20 +667,19 @@ Overfull \vbox (29.0pt too high) has occurred while \output is active []
 Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 
-[11 </home/nkapania/Desktop/research/papers/journal/VSD2014/figures/VcrPlot-eps
--converted-to.pdf>]
+[11 </home/nkapania/papers/journal/VSD2014/figures/VcrPlot-eps-converted-to.pdf
+>]
 Package epstopdf Info: Source file: <figures/FFWplot.eps>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 33825 bytes
 (epstopdf)             Output file: <figures/FFWplot-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 22500 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/FFWplot-eps-conver
 ted-to.pdf figures/FFWplot.eps>
 (epstopdf)             \includegraphics on input line 517.
 Package epstopdf Info: Output file is already uptodate.
-
-<figures/FFWplot-eps-converted-to.pdf, id=102, 421.575pt x 316.18124pt>
+ <figures/FFWplot-eps-converted-to.pdf, id=102, 421.575pt x 316.18124pt>
 File: figures/FFWplot-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/FFWplot-eps-converted-to.pdf>
@@ -700,19 +696,18 @@ Overfull \vbox (29.0pt too high) has occurred while \output is active []
 Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 
-[12 </home/nkapania/Desktop/research/papers/journal/VSD2014/figures/FFWplot-eps
--converted-to.pdf>]
-<figures/experimentInfo.jpg, id=111, 647.41875pt x 350.30875pt>
+[12 </home/nkapania/papers/journal/VSD2014/figures/FFWplot-eps-converted-to.pdf
+>] <figures/experimentInfo.jpg, id=111, 647.41875pt x 350.30875pt>
 File: figures/experimentInfo.jpg Graphic file (type jpg)
 
 <use figures/experimentInfo.jpg>
 Package pdftex.def Info: figures/experimentInfo.jpg used on input line 541.
 (pdftex.def)             Requested size: 315.0pt x 170.4394pt.
 Package epstopdf Info: Source file: <figures/racingLine.eps>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 400807 bytes
 (epstopdf)             Output file: <figures/racingLine-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 102104 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/racingLine-eps-con
 verted-to.pdf figures/racingLine.eps>
@@ -731,10 +726,10 @@ line 572.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 Package epstopdf Info: Source file: <figures/traj.eps>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 294473 bytes
 (epstopdf)             Output file: <figures/traj-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 71141 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/traj-eps-converted
 -to.pdf figures/traj.eps>
@@ -761,8 +756,7 @@ Overfull \vbox (29.0pt too high) has occurred while \output is active []
 Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 
-[13 </home/nkapania/Desktop/research/papers/journal/VSD2014/figures/experimentI
-nfo.jpg>]
+[13 </home/nkapania/papers/journal/VSD2014/figures/experimentInfo.jpg>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -772,20 +766,18 @@ Overfull \vbox (29.0pt too high) has occurred while \output is active []
 Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 
-[14 </home/nkapania/Desktop/research/papers/journal/VSD2014/figures/racingLine-
-eps-converted-to.pdf> </home/nkapania/Desktop/research/papers/journal/VSD2014/f
-igures/traj-eps-converted-to.pdf>]
+[14 </home/nkapania/papers/journal/VSD2014/figures/racingLine-eps-converted-to.
+pdf> </home/nkapania/papers/journal/VSD2014/figures/traj-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <figures/wipeout.eps>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 417874 bytes
 (epstopdf)             Output file: <figures/wipeout-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 109700 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/wipeout-eps-conver
 ted-to.pdf figures/wipeout.eps>
 (epstopdf)             \includegraphics on input line 603.
 Package epstopdf Info: Output file is already uptodate.
-
 <figures/wipeout-eps-converted-to.pdf, id=141, 498.86375pt x 512.91624pt>
 File: figures/wipeout-eps-converted-to.pdf Graphic file (type pdf)
 
@@ -803,14 +795,14 @@ Overfull \vbox (29.0pt too high) has occurred while \output is active []
 Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 
-[15 </home/nkapania/Desktop/research/papers/journal/VSD2014/figures/wipeout-eps
--converted-to.pdf>]
+[15 </home/nkapania/papers/journal/VSD2014/figures/wipeout-eps-converted-to.pdf
+>]
 Package epstopdf Info: Source file: <figures/betaCompensation.eps>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 1329832 bytes
 (epstopdf)             Output file: <figures/betaCompensation-eps-converted-to.
 pdf>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 267856 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/betaCompensation-e
 ps-converted-to.pdf figures/betaCompensation.eps>
@@ -834,13 +826,13 @@ Overfull \vbox (29.0pt too high) has occurred while \output is active []
 Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 
-[16 </home/nkapania/Desktop/research/papers/journal/VSD2014/figures/betaCompens
-ation-eps-converted-to.pdf>]
+[16 </home/nkapania/papers/journal/VSD2014/figures/betaCompensation-eps-convert
+ed-to.pdf>]
 Package epstopdf Info: Source file: <figures/errhist.eps>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 42786 bytes
 (epstopdf)             Output file: <figures/errhist-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 11693 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/errhist-eps-conver
 ted-to.pdf figures/errhist.eps>
@@ -855,10 +847,10 @@ Package pdftex.def Info: figures/errhist-eps-converted-to.pdf used on input lin
 e 643.
 (pdftex.def)             Requested size: 420.0pt x 278.05699pt.
 Package epstopdf Info: Source file: <figures/atTheLimits.eps>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 1324882 bytes
 (epstopdf)             Output file: <figures/atTheLimits-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-06-13 17:10:33
+(epstopdf)                    date: 2018-08-01 17:06:04
 (epstopdf)                    size: 264752 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/atTheLimits-eps-co
 nverted-to.pdf figures/atTheLimits.eps>
@@ -886,8 +878,8 @@ Overfull \vbox (29.0pt too high) has occurred while \output is active []
 Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 
-[17 </home/nkapania/Desktop/research/papers/journal/VSD2014/figures/errhist-eps
--converted-to.pdf>]
+[17 </home/nkapania/papers/journal/VSD2014/figures/errhist-eps-converted-to.pdf
+>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -897,8 +889,8 @@ Overfull \vbox (29.0pt too high) has occurred while \output is active []
 Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 
-[18 </home/nkapania/Desktop/research/papers/journal/VSD2014/figures/atTheLimits
--eps-converted-to.pdf>]
+[18 </home/nkapania/papers/journal/VSD2014/figures/atTheLimits-eps-converted-to
+.pdf>]
 Underfull \hbox (badness 1067) in paragraph at lines 693--704
 \OT1/cmr/m/n/10.95 anal-y-sis quan-ti-ta-tively in-di-cate that the im-proved f
 eed-for-ward com-mand re-duces
@@ -909,7 +901,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 693--704
 
  []
 
-(/home/nkapania/Desktop/research/papers/journal/VSD2014/manuscript.bbl
+(/home/nkapania/papers/journal/VSD2014/manuscript.bbl
 LaTeX Font Info:    Font shape `OML/cmr/m/it' in size <9> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 21.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
@@ -934,7 +926,7 @@ Overfull \vbox (29.0pt too high) has occurred while \output is active []
 Overfull \vbox (724.16875pt too high) has occurred while \output is active []
 
 
-[20] (/home/nkapania/Desktop/research/papers/journal/VSD2014/manuscript.aux)
+[20] (/home/nkapania/papers/journal/VSD2014/manuscript.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
@@ -945,7 +937,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
  ) 
 Here is how much of TeX's memory you used:
  3564 strings out of 494953
- 48115 string characters out of 6180977
+ 47894 string characters out of 6180978
  107152 words of memory out of 5000000
  6762 multiletter control sequences out of 15000+600000
  15443 words of font info for 60 fonts, out of 8000000 for 9000
@@ -973,8 +965,8 @@ st/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts
 ts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.p
 fb>
-Output written on /home/nkapania/Desktop/research/papers/journal/VSD2014/manusc
-ript.pdf (20 pages, 1623982 bytes).
+Output written on /home/nkapania/papers/journal/VSD2014/manuscript.pdf (20 page
+s, 1623901 bytes).
 PDF statistics:
  272 PDF objects out of 1000 (max. 8388607)
  184 compressed objects within 2 object streams

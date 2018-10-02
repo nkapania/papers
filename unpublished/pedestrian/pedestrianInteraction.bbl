@@ -1,0 +1,81 @@
+\begin{thebibliography}{10}
+
+\bibitem{Batkovic}
+Ivo Batkovic, Mario Zanon, Nils Lubbe, Paolo Falcone, and S~Y Mar.
+\newblock {A Computationally Efficient Model for Pedestrian Motion Prediction}.
+
+\bibitem{Camara2018}
+Fanta Camara, Richard Romano, Gustav Markkula, Ruth Madigan, Natasha Merat, and
+  Charles Fox.
+\newblock {This is a repository copy of Empirical game theory of pedestrian
+  interaction for autonomous vehicles . White Rose Research Online URL for this
+  paper : Version : Accepted Version Proceedings Paper : orcid . org /
+  0000-0003-0244-1582 et al . ( 3 more author}.
+\newblock 2018.
+
+\bibitem{Karasev2016}
+Vasiliy Karasev, Alper Ayvaci, Bernd Heisele, and Stefano Soatto.
+\newblock {Intent-aware long-term prediction of pedestrian motion}.
+\newblock In {\em Proceedings - IEEE International Conference on Robotics and
+  Automation}, volume 2016-June, pages 2543--2549, 2016.
+
+\bibitem{Katz1975}
+A.~Katz, D.~Zaidel, and A.~Elgrishi.
+\newblock {An experimental study of driver and pedestrian interaction during
+  the crossing conflict}.
+\newblock {\em Human Factors}, 17(5):514--527, 1975.
+
+\bibitem{Lagstrom2015}
+Tobias Lagstr{\"{o}}m and Victor~Malmsten Lundgren.
+\newblock {AVIP - Autonomous vehicles ´ interaction with pedestrians An
+  investigation of pedestrian-driver communication and}.
+\newblock page~84, 2015.
+
+\bibitem{Lee2005}
+Chris Lee and Mohamed Abdel-Aty.
+\newblock {Comprehensive analysis of vehicle-pedestrian crashes at
+  intersections in Florida}.
+\newblock {\em Accident Analysis and Prevention}, 37(4):775--786, 2005.
+
+\bibitem{Matthews}
+Milecia Matthews, Girish~V Chowdhary, and Emily Kieson.
+\newblock {Intent Communication between Autonomous Vehicles and Pedestrians}.
+
+\bibitem{RaghuramKadali2012}
+B.~{Raghuram Kadali} and Vedagiri Perumal.
+\newblock {Pedestrians' Gap Acceptance Behavior at Mid Block Location}.
+\newblock {\em International Journal of Engineering and Technology},
+  4(2):158--161, 2012.
+
+\bibitem{Rasouli}
+Amir Rasouli and John~K Tsotsos.
+\newblock {Autonomous Vehicles that Interact with Pedestrians : A Survey of
+  Theory and Practice}.
+\newblock pages 1--18.
+
+\bibitem{Rothenbucher2016}
+Dirk Rothenbucher, Jamy Li, David Sirkin, Brian Mok, and Wendy Ju.
+\newblock {Ghost driver: A field study investigating the interaction between
+  pedestrians and driverless vehicles}.
+\newblock {\em 25th IEEE International Symposium on Robot and Human Interactive
+  Communication, RO-MAN 2016}, pages 795--802, 2016.
+
+\bibitem{Schroeder2011}
+Bastian~J. Schroeder and Nagui~M. Rouphail.
+\newblock {Event-Based Modeling of Driver Yielding Behavior at Unsignalized
+  Crosswalks}.
+\newblock {\em Journal of Transportation Engineering}, 137(7):455--465, 2011.
+
+\bibitem{Sun2002}
+Dazhi Sun, Satish~V Ukkusuri, and Rahim~F Benekohal.
+\newblock {Modeling of motorist-pedestrian interaction at uncontrolled
+  mid-block crosswalks}.
+\newblock {\em Transportation Research Record}, Urbana, 51(November
+  2002):61801, 2002.
+
+\bibitem{Yannis2013}
+G.~Yannis, E.~Papadimitriou, and A.~Theofilatos.
+\newblock {Pedestrian gap acceptance for mid-block street crossing}.
+\newblock {\em Transportation Planning and Technology}, 36(5):450--462, 2013.
+
+\end{thebibliography}
