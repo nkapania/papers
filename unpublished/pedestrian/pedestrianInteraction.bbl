@@ -1,5 +1,10 @@
 \begin{thebibliography}{10}
 
+\bibitem{Bandyopadhyay}
+Tirthankar Bandyopadhyay, Chong~Zhuang Jie, David Hsu, H~Marcelo, Ang Jr,
+  Daniela Rus, and Emilio Frazzoli.
+\newblock {Intention-Aware Pedestrian Avoidance}.
+
 \bibitem{Batkovic}
 Ivo Batkovic, Mario Zanon, Nils Lubbe, Paolo Falcone, and S~Y Mar.
 \newblock {A Computationally Efficient Model for Pedestrian Motion Prediction}.
@@ -13,6 +18,11 @@ Fanta Camara, Richard Romano, Gustav Markkula, Ruth Madigan, Natasha Merat, and
   0000-0003-0244-1582 et al . ( 3 more author}.
 \newblock 2018.
 
+\bibitem{Chen}
+Baiming Chen, Ding Zhao, and Huei Peng.
+\newblock {Evaluation of Automated Vehicles Encountering Pedestrians at
+  Unsignalized Crossings}.
+
 \bibitem{Karasev2016}
 Vasiliy Karasev, Alper Ayvaci, Bernd Heisele, and Stefano Soatto.
 \newblock {Intent-aware long-term prediction of pedestrian motion}.
@@ -24,6 +34,14 @@ A.~Katz, D.~Zaidel, and A.~Elgrishi.
 \newblock {An experimental study of driver and pedestrian interaction during
   the crossing conflict}.
 \newblock {\em Human Factors}, 17(5):514--527, 1975.
+
+\bibitem{Goldenstein2013}
+Sergey Koltakov.
+\newblock {Mechanics of the Mitral Valve - an in Vivo / in Silico Approach a
+  Dissertation Submitted To the Department of Mechanical Engineering and the
+  Committee on Graduate Studies of Stanford University in Partial Fulfillment
+  of the Requirements for the Degree of}.
+\newblock (May), 2013.
 
 \bibitem{Lagstrom2015}
 Tobias Lagstr{\"{o}}m and Victor~Malmsten Lundgren.

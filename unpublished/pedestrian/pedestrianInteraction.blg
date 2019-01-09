@@ -4,53 +4,59 @@ The top-level auxiliary file: pedestrianInteraction.aux
 The style file: plain.bst
 Database file #1: Bibliography.bib
 Warning--I didn't find a database entry for "Madigan"
+Warning--empty journal in Bandyopadhyay
+Warning--empty year in Bandyopadhyay
 Warning--empty journal in Batkovic
 Warning--empty year in Batkovic
 Warning--empty journal in Camara2018
+Warning--empty journal in Chen
+Warning--empty year in Chen
+Warning--empty journal in Goldenstein2013
+Warning--there's a number but no volume in Goldenstein2013
 Warning--empty journal in Lagstrom2015
 Warning--empty journal in Matthews
 Warning--empty year in Matthews
 Warning--empty journal in Rasouli
 Warning--empty year in Rasouli
-You've used 13 entries,
+You've used 16 entries,
             2118 wiz_defined-function locations,
-            587 strings with 6770 characters,
-and the built_in function-call counts, 4779 in all, are:
-= -- 463
-> -- 249
+            599 strings with 7399 characters,
+and the built_in function-call counts, 5649 in all, are:
+= -- 535
+> -- 312
 < -- 5
-+ -- 97
-- -- 84
-* -- 358
-:= -- 791
-add.period$ -- 37
-call.type$ -- 13
-change.case$ -- 81
++ -- 122
+- -- 106
+* -- 427
+:= -- 950
+add.period$ -- 44
+call.type$ -- 16
+change.case$ -- 101
 chr.to.int$ -- 0
-cite$ -- 21
-duplicate$ -- 173
-empty$ -- 337
-format.name$ -- 84
-if$ -- 979
+cite$ -- 30
+duplicate$ -- 203
+empty$ -- 389
+format.name$ -- 106
+if$ -- 1141
 int.to.chr$ -- 0
-int.to.str$ -- 13
-missing$ -- 13
-newline$ -- 66
-num.names$ -- 26
-pop$ -- 88
+int.to.str$ -- 16
+missing$ -- 16
+newline$ -- 79
+num.names$ -- 32
+pop$ -- 117
 preamble$ -- 1
-purify$ -- 68
+purify$ -- 85
 quote$ -- 0
-skip$ -- 132
+skip$ -- 150
 stack$ -- 0
-substring$ -- 300
+substring$ -- 315
 swap$ -- 40
 text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 52
-warning$ -- 8
-while$ -- 47
-width$ -- 15
-write$ -- 133
-(There were 9 warnings)
+type$ -- 64
+warning$ -- 14
+while$ -- 53
+width$ -- 18
+write$ -- 157
+(There were 15 warnings)
