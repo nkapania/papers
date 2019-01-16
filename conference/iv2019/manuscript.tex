@@ -111,6 +111,7 @@ One of the major factors that determines pedestrian crossing behavior at uncontr
 Similar to time to collision (TTC), the safety gap is a measure of how much time there is before the vehicle would enter the crosswalk if it kept it's current speed constant. When faced with a stream of traffic at a crosswalk, a pedestrian inherently decides how much of a gap to accept before crossing. The average gap acceptance is reported in the literature to be between 3-7 seconds, meaning pedestrians usually do not cross if the vehicle would enter the crosswalk in under three seconds \cite{DiPietroCharlesMandKing1970}, and are very likely to cross when they have more than seven seconds \cite{Schmidt2009}. 
 
 \subsection{Problem Formalization and System Requirements}
+\label{sec:probform}
 
 A diagram of the relevant state variables is shown below in Fig.~\ref{fig:diagram1}. We assume that knowledge of distance $d$ to a fixed stopping point 3-5 meters ahead of the crosswalk can be estimated by a perception system, and that the velocity of the vehicle $\dot{d}$ is known as well. Furthermore, we also assume the perception system is able to determine the position of the pedestrian $x_p$ within the crosswalk, and is able to determine a velocity estimate $\dot{x_p}$ for the pedestrian as well. 
 
@@ -323,8 +324,8 @@ The algorithm is validated in simulation via a built-from-scratch crosswalk simu
 
 \begin{figure}
 \centering
-\includegraphics[width=3.5in]{figures/simFramework.png}
-\caption{Crosswalk simulation environment for algorithm validation.}
+\includegraphics[width=2.5in]{figures/simFramework.png}
+\caption{Crosswalk simulation environment for algorithm validation. Ego vehicle is shown in black, following vehicle in traffic stream shown in blue, and pedestrian shown in red.}
 \label{fig:simFramework}
 \end{figure}
 
@@ -345,6 +346,7 @@ Speed feedback gain & $k_s$ & 2.0 & 1 / sec\\
 Brake time delay    & $t_\mathrm{delay}$ & 0 & sec \\ 
 Speed limit & $v_\mathrm{speedlimit}$ & 4.5 & m/s \\
 Comfort acceleration & $a_\mathrm{cmf}$ & 2 & $\mathrm{m/s^2}$ \\
+Maximum time advantage & $t_\mathrm{max}$ & 4 & sec \\
 Maximum acceleration & $a_\mathrm{max}$ & 9 & $\mathrm{m/s^2}$ \\\hline
 \end{tabular}
 \end{center}
@@ -352,7 +354,7 @@ Maximum acceleration & $a_\mathrm{max}$ & 9 & $\mathrm{m/s^2}$ \\\hline
 
 \subsection{Simulation Results}
 
-Figure \ref{fig:velPlot1} shows simulation results for the case where the pedestrian enters the crosswalk on the same side of the road as the vehicle. The left side of the figure is for the case where the vehicle is on the right-most lane of a four way road, while the right side of the figure is for the case where the vehicle is in the second to right lane. 
+Figure \ref{fig:velPlot1} shows simulation results for the case where the pedestrian enters the crosswalk on the same side of the road as the vehicle. The left side of the figure is for the case where the vehicle is on the right-most lane of a four way road, while the right side of the figure is for the case where the vehicle is in the second to right lane. Every marker in the figure represents a simulated vehicle crossing.
 
 \begin{figure}
 \centering
@@ -361,7 +363,32 @@ Figure \ref{fig:velPlot1} shows simulation results for the case where the pedest
 \label{fig:velPlot1}
 \end{figure}
 
-Figure \ref{fig:velPlot1} shows simulation results for the case where the pedestrian enters the crosswalk on the same side of the road as the vehicle. The left side of the figure is for the case where the vehicle is on the right-most lane of a four way road, while the right side of the figure is for the case where the vehicle is in the second to right lane. 
+Figure \ref{fig:velPlot2} shows the same simulation results, but for the case where the pedestrian enters the crosswalk on the opposite side of the road as the vehicle. Again, the total number of pedestrian crossing trials conducted was 750, with 375 trials for each side.  
+
+\begin{figure}
+\centering
+\includegraphics[width=3.5in]{figures/velPlot2.eps}
+\caption{Simulation results for case where pedestrian enters the crosswalk on the opposite side of the road as the vehicle.}
+\label{fig:velPlot2}
+\end{figure}
+
+\subsubsection{Safety and Legality}
+
+To meet the collision avoidance design requirement, we generated enough simulations to ensure errant pedestrian crossing behavior at "risky" accepted gaps (< 3 seconds). The minimum distance between the vehicle and the pedestrian for each trial is shown in the bottom rows of Fig. \ref{fig:velPlot1} and Fig.\ref{fig:velPlot2}. In general, the vehicle is able to maintain a safe distance of at least four meters from the pedestrian for the case where the vehicle is in the second to right lane. This is because the algorithm has enough time to react to a pedestrian crossing no matter what size gap is accepted. 
+
+The riskiest case occurs when the vehicle is in the right-most lane and the pedestrian crosses from the right side, accepting a gap between 1.25 and 1.75 seconds. Note that this is in general unlikely given gap acceptance statistics reported in the literature \cite{Feliciani2017}\cite{Rasouli}, but would represent a safety risk given the vehicle has limited time to react. However, since the algorithm recognizes that braking will not clear the crosswalk, the vehicle is able to speed up and maintain at least 2 meters of lateral distance from the pedestrian at all times. Note that a better way to confirm robustness of the controller to all reasonable pedestrian behaviors would be through a verification analysis - this will be the focus of future work. 
+
+In terms of the fifty state legality requirement, we conducted our simulation for the twenty states where the vehicle is required to yield, not stop, to a pedestrian in the same side of the crosswalk or approaching from the opposite side. For the US states where the vehicle is explicitly required to stop, the change to the controller is trivial - the controller may not stay in the driving mode if sufficient time advantage exits (see Algorithm 1). 
+
+\subsubsection{Efficiency}
+
+The requirement to minimize deviation from speed of traffic is validated in the top row of Fig.\ref{fig:velPlot1} and Fig.\ref{fig:velPlot2}, which shows the average velocity of the vehicle for each simulated crossing. For high accepted gaps, the pedestrian simply waits for the ego vehicle to exit the crosswalk before beginning to walk, and the algorithm does not need to slow down from the speed of traffic. For low accepted gaps, the vehicle cannot stop, and must speed up or continue driving through the intersection, also keeping the speed of traffic high.  
+
+The most disruption to traffic flow occurs when the vehicle must come to a complete stop, which occurs for accepted gaps between 2-6 seconds. In this case, the average velocity increases as the accepted gap increases. This is because as the pedestrian enters the crosswalk earlier, they are closer to exiting when the vehicle must yield, resulting in less time stopped and higher average velocity. 
+
+Note that a special case occurs in Fig.\ref{fig:velPlot2} where the vehicle is in the right-most lane of the four lane road and the pedestrian crosses from the other side. Because the vehicle is at a far distance from the pedestrian, the time advantage remains sufficiently high for the vehicle to comfortably continue through the crosswalk without needing to slow down.  
+
+\subsubsection{Smoothness}
 
 
 \section{Experimental Results}

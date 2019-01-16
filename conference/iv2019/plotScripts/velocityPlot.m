@@ -1,8 +1,8 @@
 clear all; close all; clc;
-dat1 =load('/home/nkapania/catkin_ws/src/harpagornis/bags/out1.mat');
+dat1 =load('/home/nkapania/catkin_ws/src/harpagornis/bags/out4.mat');
 dat1.lane = 3;
 
-dat2 =load('/home/nkapania/catkin_ws/src/harpagornis/bags/out2.mat');
+dat2 =load('/home/nkapania/catkin_ws/src/harpagornis/bags/out3.mat');
 dat2.lane = 2;
 
 laneWidth = 3.7;
@@ -108,7 +108,7 @@ ylabel('Maximum Acceleration (m/s2)')
 subplot(3,2,5)
 grid on; hold on; 
 scatter(dat1.acceptedGapDownsample, dat1.minDistance,'k*')
-ylim([0, 9]);
+ylim([0, 13]);
 xlim([0, 9]);
 xlabel('Pedestrian Accepted Gap (s)')
 ylabel('Minimum Distance (m)')
