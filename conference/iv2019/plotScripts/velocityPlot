@@ -1,3 +1,0 @@
-clear all; close all; clc;
-
-load /home/nkapania/catkin_ws/src/harpagornis/bags/out1.mat
