@@ -75,52 +75,50 @@ end
 
 %%
 subplot(3,2,1)
-scatter(dat1.acceptedGapDownsample, dat1.avgVelocity,'k*')
 grid on; hold on; 
-title('Rightmost Lane')
-ylim([0, 5]);
+title('Rightmost Lane','FontSize',18)
+scatter(dat1.acceptedGapDownsample, dat1.minDistance,'k*')
+ylim([0, 13]);
 xlim([0, 9]);
-ylabel('Average Velocity (m/s)')
+ylabel('Minimum Distance to Pedestrian(m)')
+
 
 subplot(3,2,2)
-scatter(dat2.acceptedGapDownsample, dat2.avgVelocity,'ro')
 grid on; hold on; 
-title('Second to Right Lane')
-ylim([0, 5]);
+title('Second to Right Lane','FontSize',18)
+scatter(dat2.acceptedGapDownsample, dat2.minDistance,'ro')
+ylim([0, 9]);
 xlim([0, 9]);
-ylabel('Average Velocity (m/s)')
 
 subplot(3,2,3)
+scatter(dat1.acceptedGapDownsample, dat1.avgVelocity,'k*')
+grid on; hold on; 
+ylim([0, 5]);
+xlim([0, 9]);
+ylabel('Average Velocity (m/s)','FontSize',18)
+
+subplot(3,2,4)
+scatter(dat2.acceptedGapDownsample, dat2.avgVelocity,'ro')
+grid on; hold on; 
+
+ylim([0, 5]);
+xlim([0, 9]);
+
+subplot(3,2,5)
 grid on; hold on; 
 scatter(dat1.acceptedGapDownsample, dat1.maxAccel,'k*')
 ylim([0, 9]);
 xlim([0, 9]);
+xlabel('Pedestrian Accepted Gap (s)')
 ylabel('Maximum Acceleration (m/s2)')
 
-subplot(3,2,4)
+subplot(3,2,6)
 grid on; hold on; 
 scatter(dat2.acceptedGapDownsample, dat2.maxAccel,'ro')
 ylim([0, 9]);
 xlim([0, 9]);
 ylabel('Maximum Acceleration (m/s2)')
-
-
-subplot(3,2,5)
-grid on; hold on; 
-scatter(dat1.acceptedGapDownsample, dat1.minDistance,'k*')
-ylim([0, 13]);
-xlim([0, 9]);
 xlabel('Pedestrian Accepted Gap (s)')
-ylabel('Minimum Distance (m)')
-
-
-subplot(3,2,6)
-grid on; hold on; 
-scatter(dat2.acceptedGapDownsample, dat2.minDistance,'ro')
-ylim([0, 9]);
-xlim([0, 9]);
-xlabel('Pedestrian Accepted Gap (s)')
-ylabel('Maximum Acceleration (m/s2)')
 
 %%
 % ind2 = find(velocity_mps == 0);
