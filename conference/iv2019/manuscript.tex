@@ -360,12 +360,13 @@ The algorithm is validated in simulation via a built-from-scratch crosswalk simu
 \label{fig:simFramework}
 \end{figure}
 
-To simulate random pedestrian crossing events, a pedestrian is spawned in an area of influence on the sidewalk. The pedestrian accepts a randomly sized time gap in the traffic stream to cross the road at constant speed $\dot{x}_p$. The size of the time gap is drawn from a normal distribution with mean $\mu_{gap}$ and standard deviation $\sigma_{gap}$. Statistics for $\mu_{gap}$ and $\sigma_{gap}$ are obtained from results of the video graphic analysis by Feliciani et al. \cite{Feliciani2017}. 
+To simulate random pedestrian crossing events, a pedestrian is spawned  on the sidewalk near the entrance to the crosswalk. The pedestrian accepts a randomly sized time gap in the traffic stream to cross the road at constant speed $\dot{x}_p$. While pedestrian speeds vary both according to demographic factors and within an individual crossing attempt \cite{Feliciani2017}, the primary focus of this study is varying the gap acceptance, and a constant velocity for all trials is therefore assumed. 
+
+The size of the time gap is drawn from a normal distribution with mean $\mu_{gap}$ and standard deviation $\sigma_{gap}$. Statistics for $\mu_{gap}$ and $\sigma_{gap}$ are obtained from results of the video graphic analysis by Feliciani et al. \cite{Feliciani2017}. 
 
 The ego vehicle's response to the pedestrian is simulated over Algorithm 1 for the parameters shown in Table \ref{tb:params}.  
 
 \begin{table}[h]
-\footnotesize
 \begin{center}
 \caption{Simulation and Controller Parameters}\label{tb:params}
 \begin{tabular}{lccc}
@@ -374,6 +375,7 @@ Number of lanes & $n$ & 4 & - \\
 Gap variance & $\sigma^2_{gap}$ & 2.5 & sec\\
 Pedestrian velocity & $\dot{x}_p$ & 1.2 & $\mathrm{m/s}$ \\
 Mean accepted gap & $\mu_{gap}$ & 4.0 & sec\\\hline
+Safety offset       & $\Delta$ & 5.0 & m \\
 Speed feedback gain & $k_s$ & 2.0 & 1 / sec\\
 Brake time delay    & $t_\mathrm{delay}$ & 0 & sec \\ 
 Speed limit & $v_\mathrm{speedlimit}$ & 4.5 & m/s \\
@@ -391,7 +393,7 @@ Figure \ref{fig:velPlot1} shows simulation results for the case where the pedest
 \begin{figure}
 \centering
 \includegraphics[width=3.5in]{figures/velPlot.eps}
-\caption{Simulation results for case where pedestrian enters the crosswalk on the same side of the road as the vehicle.}
+\caption{Simulation results for case where pedestrian enters the crosswalk on the same side of the road as the vehicle. Plots (a) and (b) show the closest distance between the vehicle and pedestrian for each crossing trial, (c) and (d) plots the average vehicle velocity for each simulated crossing, and (e) and (f) plots the peak acceleration / deceleration magnitude for each trial.}
 \label{fig:velPlot1}
 \end{figure}
 
@@ -400,7 +402,7 @@ Figure \ref{fig:velPlot2} shows the same simulation results, but for the case wh
 \begin{figure}
 \centering
 \includegraphics[width=3.5in]{figures/velPlot2.eps}
-\caption{Simulation results for case where pedestrian enters the crosswalk on the opposite side of the road as the vehicle.}
+\caption{Simulation results for case where pedestrian enters the crosswalk on the opposite side of the road as the vehicle. Plots (a) and (b) show the closest distance between the vehicle and pedestrian for each crossing trial, (c) and (d) plots the average vehicle velocity for each simulated crossing, and (e) and (f) plots the peak acceleration / deceleration magnitude for each trial.}
 \label{fig:velPlot2}
 \end{figure}
 
@@ -423,7 +425,6 @@ Note that a special case occurs in Fig.~\ref{fig:velPlot2} where the vehicle is 
 Table \ref{tb:speeds} shows a summary of the average speed compared to the baseline speed of 4.4 m/s for each of the four cases.
 
 \begin{table}[h]
-\footnotesize
 \begin{center}
 \caption{Average Vehicle Speed}\label{tb:speeds}
 \begin{tabular}{cccc}
@@ -439,7 +440,7 @@ Left Side  & Second-to-Right & 2.80 & 64\% \\\hline
 \end{table}
 
 \subsubsection{Smoothness}
-The requirement of keeping a low acceleration where possible is validated through (e) and (f) of Figures~\ref{fig:velPlot1} and \ref{fig:velPlot2}. The vehicle is able to maintain a peak acceleration of 2 $\mathrm{m/s^2}$ for the vast majority of simulated trials, particularly when the pedestrian crosses from the opposing side of the road or when the vehicle is in the second to right line.
+The requirement of keeping a low acceleration magntude where possible is validated through (e) and (f) of Figures~\ref{fig:velPlot1} and \ref{fig:velPlot2}, which plots the peak acceleration / deceleration magnitude for each simulated crossing. The vehicle is able to maintain a peak acceleration of 2 $\mathrm{m/s^2}$ for the vast majority of simulated trials, particularly when the pedestrian crosses from the opposing side of the road or when the vehicle is in the second to right line.
 
 However, there are a handful of simulated trials in Fig.~\ref{fig:velPlot1} when the pedestrian accepts a gap between 1.75-2.5 seconds and the vehicle is in Lane A. In this case, the vehicle must enter the \textit{Hard Braking} state and decelerate at a magnitude higher than $a_\mathrm{cmf}$. This is required in order to meet the collision avoidance constraint, which naturally takes priority. Again, note that this situation occurs relatively rarely, as pedestrians typically accept gaps between 3-6 seconds and are unlikely to risk hazardous behaviors unless distracted. 
 
@@ -465,13 +466,13 @@ However, there are a handful of simulated trials in Fig.~\ref{fig:velPlot1} when
 The proposed hybrid controller is tested experimentally using a Hyundai Genesis G80 experimental testbed, shown in Fig. \ref{fig:g80}. A two lane unsignalized intersection at Richmond Field Station near Berkeley's campus was chosen for the experimental validation (Fig.~\ref{fig:crosswalkpic}).  In lieu of an actual pedestrian, a pedestrian was simulated virtually using the ROS simulation architecture, with the position of the pedestrian passed to the vehicle controller in real time. Differential GPS was used to record the distance to the crosswalk, and a steering controller from \cite{Kapania2015} was used to autonomously steer the vehicle down the road. Relevant parameters of the experiments are shown below in Table \ref{tb:expparams}.
 
 \begin{table}[h]
-\footnotesize
 \begin{center}
 \caption{Experimental Parameters}\label{tb:expparams}
 \begin{tabular}{lccc}
 Parameter & Symbol & Value & Units \\\hline\hline
 Number of lanes & $n$ & 2 & - \\
-Speed feedback gain & $k_s$ & 0.0 & 1 / sec\\
+Safety offset   & $\Delta$ & 5 & m \\
+Speed feedback gain & $k_s$ & 1.0 & 1 / sec\\
 Brake time delay    & $t_\mathrm{delay}$ & 0.5 & sec \\ 
 Speed limit & $v_\mathrm{speedlimit}$ & 7 & m/s \\
 Comfort acceleration & $a_\mathrm{cmf}$ & 2 & $\mathrm{m/s^2}$ \\
@@ -481,11 +482,10 @@ Maximum acceleration & $a_\mathrm{max}$ & 9 & $\mathrm{m/s^2}$ \\\hline
 \end{center}
 \end{table}
 
-Several key differences to highlight between the simulations and the experiments are that the number of lanes is decreased from 4 to 2 and that the speed limit is increased to 7 m/s to match the parameters of the experimental intersection. Also note that the speed tracking feedback is disabled as it triggered fault conditions in Hyundai's low-level controller. The experiment consisted of six trials intended to show operation of the four discrete modes of the controller. A description of the trial parameters are shown in Table \ref{tb:expparams2}. 
+Several key differences to highlight between the simulations and the experiments are that the number of lanes is decreased from 4 to 2 and that the speed limit is increased to 7 m/s to match the parameters of the experimental intersection. The experiment consisted of six trials intended to show operation of the four discrete modes of the controller. A description of the trial parameters are shown in Table \ref{tb:expparams2}. 
 
 
 \begin{table}[h]
-\footnotesize
 \begin{center}
 \caption{Experimental Parameters}\label{tb:expparams2}
 \begin{tabular}{llll}
@@ -501,18 +501,18 @@ Trial Number & Gap Accepted (sec) & Pedestrian Entry & Mode\\\hline\hline
 \end{table}
 
 The experimental velocity and acceleration is plotted vs $d$ in 
-Figure \ref{fig:expPlot}. In Trial 1, the virtual pedestrian enters when the vehicle is four seconds from intersecting, giving the vehicle enough time to yield at a deceleration of 2 $\mathrm{m/s^2}$. Note that the low level acceleration controller exhibits a large time delay between commanded and actual acceleration. Because this is accounted for in Algorithm 1, the vehicle is able to brake early and the vehicle is nearly stopped 1 meter ahead of the desired stop point before the pedestrian exits the crosswalk and the vehicle speeds back up. This 1 meter overshoot, while undesirable, is realistically acceptable given the desired stopping point $d=0$ is set to be five meters before the crosswalk actually begins. 
+Figure \ref{fig:expPlot}. In Trial 1, the virtual pedestrian accepts a gap of four seconds, giving the vehicle enough time to yield at a deceleration of 2 $\mathrm{m/s^2}$. Note that the low level acceleration controller exhibits a large time delay between commanded and actual acceleration. Because this is accounted for in Algorithm 1, the vehicle is able to brake early and the vehicle is stopped right at $d=0$ before the pedestrian exits the crosswalk and the vehicle speeds back up.  
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=3.5in]{figures/expPlot.eps}
-\caption{Experimental velocity and acceleration plotted vs distance to crosswalk. Note that the sign of $d$ is opposite that of Fig.~\ref{fig:diagram1}. Green circles mark the point where the pedestrian first enters crosswalk. Red circles mark the point where the pedestrian leaves the crosswalk. Note that for Trial 3, the green circle is off the page at -40 meters.}
+\caption{Experimental velocity and acceleration plotted vs distance to crosswalk. Green lines mark the point where the pedestrian first enters crosswalk. Black lines mark the point where the pedestrian leaves the crosswalk. Note that for Trial 3, the green line is off the page at 40 meters.}
 \label{fig:expPlot}
 \end{figure}
 
 In Trial 2, the pedestrian enters from the right with just 1 second before collision. This experiment, while unlikely in reality, was undertaken to verify the vehicle would not brake, but accelerate through the intersection. Trial 3 represents a situation where the pedestrian crosses with a large (7 second) gap. In this case, the pedestrian has enough time to almost cross before the vehicle needs to yield, resulting in the vehicle only needing to slow down slightly. 
 
-In Trial 4, the pedestrian exhibits risky behavior, crossing with a 2.5 second gap. In this case, the vehicle has enough time to brake, but must decelerate rapidly at 5 $\mathrm{m/s^2}$ in the \textit{hard braking} mode. Given the brake delay in the experimental vehicle, significant overshoot occurs, and the vehicle stops nearly 2.5 meters ahead of the desired stopping location. Unlike in the yielding mode, the brake delay can not be compensated for because the vehicle must brake suddenly. 
+In Trial 4, the pedestrian exhibits risky behavior, crossing with a 2.5 second gap. In this case, the vehicle has enough time to brake, but must decelerate rapidly at 5 $\mathrm{m/s^2}$ in the \textit{hard braking} mode. Given the brake delay in the experimental vehicle, significant overshoot occurs, and the vehicle stops nearly 2.5 meters ahead of the desired stopping location. However, given that the desired stop location is 5 meters ahead of the crosswalk, this is sufficient to avoid a collision. Note that unlike in the yielding mode, the brake delay can not be compensated for because the pedestrian enters unexpectedly. 
 
 Trials 5 and 6 represent pedestrian crossings from the opposite side of the road under accepted gaps of 3.0 and 1.0 seconds, respectively. In the former case, the vehicle is able to yield in a fashion similarly to Trial 1, and in the latter case, the vehicle is able to speed through the intersection, as in Trial 2. 
 
