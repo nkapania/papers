@@ -34,10 +34,10 @@
 %\usepackage{amssymb}  % assumes amsmath package installed
 
 \title{\LARGE \bf
-A Hybrid Control Framework for Autonomous Vehicles at Uncontrolled Intersections}
+A Hybrid Control Design for Autonomous Vehicles at Uncontrolled Intersections}
 
 
-\author{Nitin R. Kapania$^{1}$, Vijay Govindarajan$^{2}$, Francesco Borrelli$^{2}$, J Christian Gerdes$^{1}$% <-this % stops a space
+\author{Nitin R. Kapania$^{1}$, Vijay Govindarajan$^{2}$, Francesco Borrelli$^{2}$% <-this % stops a space
 \thanks{*This work was supported by the Hyundai Center of Excellence}% <-this % stops a space
 \thanks{$^{1}$Dept. of Mechanical Engineering, Stanford University. Nitin Kapania is also a visiting scholar at UC Berkeley.}%
 \thanks{$^{2}$Dept. of Mechanical Engineering, UC Berkeley.}%
@@ -60,7 +60,7 @@ A Hybrid Control Framework for Autonomous Vehicles at Uncontrolled Intersections
 
 As autonomous vehicles (AVs) inch closer to reality, a central requirement for acceptance will be earning the trust of humans in everyday driving situations. In particular, the interaction between AVs and pedestrians is of
 high importance, as every human is a pedestrian at some point of the day. This paper considers the interaction of a pedestrian and an autonomous vehicle at a mid-block, uncontrolled intersection where there is ambiguity
-over when the pedestrian should cross and when and how the vehicle should yield. By modeling pedestrian behavior through the concept of gap acceptance, the authors show that a hybrid controller with just four distinct modes allows an autonomous vehicle to successfully interact with a pedestrian across a continuous spectrum of possible crosswalk entry behaviors. The controller is validated through extensive simulation and compared to an alternate POMDP solution, and experimental results are provided on a Hyundai Genesis vehicle for a virtual pedestrian.  
+over when the pedestrian should cross and when and how the vehicle should yield. By modeling pedestrian behavior through the concept of gap acceptance, the authors show that a hybrid controller with just four distinct modes allows an autonomous vehicle to successfully interact with a pedestrian across a continuous spectrum of possible crosswalk entry behaviors. The controller is validated through extensive simulation and compared to an alternate POMDP solution and experimental results are provided on a research vehicle for a virtual pedestrian.  
 
 \end{abstract}
 
@@ -70,22 +70,20 @@ over when the pedestrian should cross and when and how the vehicle should yield.
 
 \subsection{Motivation}
 
-While autonomous vehicles have the potential to save thousands of lives every year and create significant societal benefits \cite{Fagnant2015}, widespread adoption is unlikely until AVs gain the broad trust of society. Given that every human is a pedestrian at some point during the day, one of the central ways that autonomous vehicles will be evaluated is through their interactions with pedestrians. In fact, recent events with industry leader Waymo highlight that AV-pedestrian interaction has still not been perfected \cite{MattRichtelandConorDougherty2015}. In general, interactions with pedestrians are complex, even for experienced human drivers. Issues such as lack of visibility, improper communication, poorly marked roads, and distraction on both the driver or pedestrian side can lead to accidents and fatalities. From 2015-2016, pedestrian fatalaties increased by 9\% to 5987, representing the highest number since 1990, and also representing 16\% of all automotive fatalities \cite{HighwayTrafficSafetyAdministration2016}. As autonomous vehicles inch closer to widespread adoption, they must have a clear control strategy for pedestrian interaction that can handle a wide variety of pedestrian behaviors while maintaining a reasonable flow of traffic.    
+While autonomous vehicles have the potential to save thousands of lives every year and create significant societal benefits \cite{Fagnant2015}, widespread adoption is unlikely until AVs gain the broad trust of society. Given that every human is a pedestrian at some point during the day, one of the central ways that autonomous vehicles will be evaluated is through their interactions with pedestrians. In fact, recent events with industry leader Waymo highlight that AV-pedestrian interaction has still not been perfected \cite{MattRichtelandConorDougherty2015}. In general, interactions with pedestrians are complex, even for experienced human drivers. From 2015-2016, pedestrian fatalaties increased by 9\% to 5987, representing the highest number since 1990, and also representing 16\% of all automotive fatalities \cite{HighwayTrafficSafetyAdministration2016}. As autonomous vehicles inch closer to widespread adoption, they must have a clear control strategy for pedestrian interaction that can handle a wide variety of pedestrian behaviors while maintaining a reasonable flow of traffic.    
 
 \subsection{Prior Art}
 
-The need to further understand pedestrian behavior for autonomous driving has created a growing body of interdisciplinary research. One branch of research has focused on modeling pedestrian behavior given various sensor inputs. Keller et al \cite{Keller2014} presented a study on pedestrian path prediction and action classification (e.g. crossing vs. waiting) using Gaussian process dynamical models and trajectory matching from optical data. Several other techniques for pedestrian trajectory prediction have been proposed, including LQR \cite{Batkovic}, set-based reachability analysis \cite{Koschi2018}, and Markov processes \cite{Karasev2016} 
+The need to further understand pedestrian behavior for autonomous driving has created a signficant body of research focused on modeling pedestrian behavior given various sensor inputs. Keller et al \cite{Keller2014} presented a study on pedestrian path prediction and action classification (e.g. crossing vs. waiting) using Gaussian process dynamical models and trajectory matching from optical data. Several other techniques for pedestrian trajectory prediction have been proposed, including LQR \cite{Batkovic}, set-based reachability analysis \cite{Koschi2018}, and Markov processes \cite{Karasev2016} Another branch of literature focuses on modeling pedestrian crossing behavior in the form of  video analysis. Schroeder and Rouphail \cite{Schroeder2011} explored factors associated with driver yielding behavior at unsignalized pedestrian crossings. Using logistic regression, the authors found that drivers are more likely to yield to assertive pedestrians who walk briskly in their approach to a crosswalk. Kadali and Perumal \cite{RaghuramKadali2012} studied the ``gap acceptance" behavior of pedestrians at mid-block crosswalks, and found that the gap accepted for crossing was explained by factors such as crossing direction, vehicle speed, and pedestrian age. Yannis et al. \cite{Yannis2013} and Sun et al.\cite{Sun2002} also found that gap acceptance was influenced by the size of the oncoming vehicle and the presence of other pedestrians. 
 
-Another branch of literature focuses on pedestrian behavior analysis using empirical data, typically in the form of video analysis. While typically studied for purposes of road design, this body of literature holds promising insights for AV designers. For example, Schroeder and Rouphail \cite{Schroeder2011} explored factors associated with driver yielding behavior at unsignalized pedestrian crossings. Using logistic regression, the authors found that drivers are more likely to yield to assertive pedestrians who walk briskly in their approach to a crosswalk. Kadali and Perumal \cite{RaghuramKadali2012} studied the ``gap acceptance" behavior of pedestrians at mid-block crosswalks through a video graphic survey, and found that the gap accepted for crossing was explained by factors such as crossing direction, vehicle speed, and pedestrian age. Yannis et al. \cite{Yannis2013} and Sun et al.\cite{Sun2002} also found that gap acceptance was influenced by the size of the oncoming vehicle and the presence of other pedestrians.  Lee and Aty \cite{Lee2005} studied interactions in the form of crashes, and found crashes were linked with higher daily traffic. 
+A small but rapidly growing body of literature specifically studies the interaction between pedestrians and autonomous vehicles at crosswalks. An excellent review of these studies was conducted by Rasouli et al. \cite{Rasouli}. As an example, Rothenbucher et al. \cite{Rothenbucher2016} studied the interaction between pedestrians and driverless vehicles by constructing a car seat costume to disguise a driver. To improve the issue of trust, several researchers have also developed external communication interfaces to more clearly broadcast the intent of the autonomous vehicle (\cite{Matthews}, \cite{Lagstrom2015}). 
 
-Finally, a small but rapidly growing body of literature specifically studies the interaction between pedestrians and autonomous vehicles at crosswalks. An excellent review of these studies was conducted by Rasouli et al. \cite{Rasouli}. As an example, Rothenbucher et al. \cite{Rothenbucher2016} studied the interaction between pedestrians and driverless vehicles by constructing a car seat costume to disguise a driver. To improve the issue of trust, several researchers have also developed external communication interfaces to more clearly broadcast the intent of the autonomous vehicle (\cite{Matthews}, \cite{Lagstrom2015}). 
-
-One issue with automated driving for crosswalk scenarios is that an overly conservative crossing algorithm will often be taken advantage of or cause confusion among pedestrians\cite{Camara2018}. Camara et al. \cite{Camara2018} attempted to model the natural negotation for priority between a pedestrian and an AV at an intersection using the framework of game theory. Chen et al. \cite{Chen} notes the need for a tradeoff between passive and aggressive driving behavior, and developed a stochastic model of pedestrian behavior to evaluate proposed AV control policies. Control polices for pedestrian interaction are also developed in \cite{Bandyopadhyay}, who proposes a Mixed-observable Markov Decision Process (MOMDP) to incorporate the intention uncertainty of a pedestrian. A Partially-observable Markov Decision Process (POMDP) formulation is also proposed by Thornton \cite{Thornton2018}, who proposes a value-sensitive design framework to assist with the development of engineering specifications for the control algorithm. 
+One issue with automated driving for crosswalk scenarios is that an overly conservative crossing algorithm will often be taken advantage of or cause confusion among pedestrians\cite{Camara2018}. Camara et al. \cite{Camara2018} attempted to model the natural negotiation for priority between a pedestrian and an AV at an intersection using the framework of game theory. Chen et al. \cite{Chen} notes the need for a tradeoff between passive and aggressive driving behavior, and developed a stochastic model of pedestrian behavior to evaluate proposed AV control policies. Control polices for pedestrian interaction are also developed in \cite{Bandyopadhyay}, who proposes a Mixed-observable Markov Decision Process (MOMDP) to incorporate the intention uncertainty of a pedestrian. A Partially-observable Markov Decision Process (POMDP) formulation is also proposed by Thornton \cite{Thornton2018}, who proposes a value-sensitive design framework to assist with the development of engineering specifications for the control algorithm. 
 
 \subsection{Statement of Contributions}
-Significant research has been conducted to understand the likelihood of pedestrian crossing given certain traffic conditions and pedestrian demographics \cite{Schroeder2011} -\cite{Lee2005}, and a small but growing body of literature develops control strategies for pedestrian avoidance \cite{Bandyopadhyay}-\cite{Thornton2018}. However, what is missing is a contribution that explicitly  tests whether a proposed control strategy is robust to the variety of pedestrian behaviors that have been observed from experimental studies on real roads. What is also missing is analysis of how this controller should behave across multiple traffic scenarios - for example, the navigation problem is different for the pedestrian crossing on the opposing side of traffic, and also depends on which particular lane the vehicle is in. To the authors knowledge, there are also no studies that explicitly compare different approaches in order to provide a comparision of alternative solution methods.  
+Significant research has been conducted to understand the likelihood of pedestrian crossing given certain traffic conditions and pedestrian demographics \cite{Schroeder2011} -\cite{Lee2005}, and a small but growing body of literature develops control strategies for pedestrian avoidance \cite{Bandyopadhyay}-\cite{Thornton2018}. However, the literature lacks a contribution that combines the two and explicitly  tests whether a proposed control strategy is robust to the variety of pedestrian behaviors that have been observed from experimental studies on real roads. What is also lacking is analysis of how this controller should behave across multiple traffic scenarios - for example, the navigation problem is different for the pedestrian crossing on the opposing side of traffic. To the authors knowledge, there are also no studies that explicitly compare different approaches in order to provide a comparision of alternative solution methods.  
 
-This paper aims to address these gap by developing a hybrid control architecture that accounts for several distinct pedestrian modes of behavior at an unsignalized crosswalk. An unsignalized crosswalk is chosen as it is the trickiest crosswalk for a pedestrian and vehicle to navigate, as there is no explicit declaration of whose turn it is cross. Simulations show that the hybrid controller is able to handle a continuous spectrum of pedestrian \textit{gap acceptance} behavior, tolerating a range of highly conservative to highly aggressive pedestrians. Moreover, this is possible with just four distinct controller modes. Additionally, this paper provides a simulated comparison between the hybrid controller and the solution method proposed by Thornton \cite{Thornton2018}, citing advantages and disadvantages of each method. Finally, experimental results are shown on a real vehicle to demonstrate the feasibility of the proposed controller in real-time. 
+This paper aims to address the above issues by developing a hybrid control architecture that accounts for several distinct pedestrian modes of behavior at an unsignalized crosswalk. An unsignalized crosswalk is chosen as it is the trickiest crosswalk for a pedestrian and vehicle to navigate, as there is no explicit declaration of whose turn it is to cross. Simulations show that the proposed hybrid controller is able to handle a continuous spectrum of pedestrian \textit{gap acceptance} behavior, tolerating a range of highly conservative to highly aggressive pedestrians. Additionally, this paper provides a simulated comparison between the hybrid controller and the solution method proposed by Thornton \cite{Thornton2018}, citing advantages and disadvantages of each method. Finally, experimental results are shown on a real vehicle to demonstrate the feasibility of the proposed controller in real-time. 
 
 
 \section{Problem Overview}
@@ -101,12 +99,12 @@ In general, pedestrian crosswalks may be controlled or uncontrolled. In the case
 \label{fig:schematic}
 \end{figure}
 
-In general, right-of-way for uncontrolled intersections is complex. For example, nine states and the District of Columbia require motorists to \textit{stop} when approaching a pedestrian in an uncontrolled crosswalk. Six states require a motorist to stop when a pedestrian is upon the same half of the roadway or within one lane of the lane that the motorist is traveling in. Another nineteen states require a motorist to \textit{yield} when a pedestrian is upon any portion of the roadway, and another 20 states mandate that motorists yield when a pedestrian is upon the same half of the roadway or approaching closely from the opposite side of the roadway \cite{Legislatures2018}.
+In general, right-of-way for uncontrolled intersections is complex. For example, nine states and the District of Columbia require motorists to \textit{stop} when approaching a pedestrian in an uncontrolled crosswalk, while another nineteen states only require a motorist to \textit{yield} when a pedestrian is upon any portion of the roadway. A full guideline for right-of-way for all fifty states is provided in \cite{Legislatures2018}.
 
 \subsection{Problem Formalization}
 \label{sec:probform}
 
-A diagram of the relevant state variables is shown in Fig.~\ref{fig:schematic}. We assume that knowledge of distance $d$ to a fixed stopping point 3-5 meters ahead of the crosswalk can be estimated by a perception system, and that the velocity of the vehicle $\dot{d}$ is known as well. Furthermore, we also assume the perception system is able to determine the position of the pedestrian $x_p$ within the crosswalk, and is able to determine a velocity estimate $\dot{x}_p$ for the pedestrian as well. 
+A diagram of the relevant state variables is shown in Fig.~\ref{fig:schematic}. We assume that knowledge of distance $d(t)$ to a fixed stopping point 3-5 meters ahead of the crosswalk can be estimated by a perception system, and that the vehicle velocity $v(t)$ is known as well. Furthermore, we also assume the perception system is able to determine the position of the pedestrian $x_p$ within the crosswalk, and is able to determine a velocity estimate $\dot{x}_p$ for the pedestrian. 
 
 % \begin{figure}
 % \centering
@@ -115,17 +113,18 @@ A diagram of the relevant state variables is shown in Fig.~\ref{fig:schematic}. 
 % \label{fig:diagram1}
 % \end{figure}
 
-The relevant control problem is therefore to determine an appropriate longitudinal acceleration command for the vehicle, $u = \ddot{d}$, as a closed-loop function of the vehicle and pedestrian states:
+The relevant control problem is therefore to determine an appropriate longitudinal acceleration command for the vehicle, $u(t) = a(t)$, as a closed-loop function of the vehicle and pedestrian states:
 
 \begin{equation}
-\ddot{d} = f(d, \dot{d}, x_p, \dot{x_p})
+a = f(d, v, x_p, \dot{x_p})
 \end{equation}
 
-In general, this control problem is difficult as there are multiple stakeholders and therefore multiple competing objectives that must be considered. For example, relevant stakeholders for this problem are the autonomous vehicle occupants, the pedestrian(s), and the other vehicles in the traffic stream. 
 
-As a result, an algorithm that simply yields every time a pedestrian is near the crosswalk is likely to be too conservative, as there is a likelihood the pedestrian is waiting for a larger gap in the traffic stream to cross or is walking through the sidewalk without intending to cross in the first place. 
+% As a result, an algorithm that simply yields every time a pedestrian is near the crosswalk is likely to be too conservative, as there is a likelihood the pedestrian is waiting for a larger gap in the traffic stream to cross or is walking through the sidewalk without intending to cross in the first place. 
 
 \subsection{System Requirements}
+
+In general, this control problem is difficult as there are multiple stakeholders and therefore multiple competing objectives that must be considered. For example, relevant stakeholders for this problem are the autonomous vehicle occupants, the pedestrian(s), and the other vehicles in the traffic stream. 
 
 To formalize the system requirements for this multi-stake holder problem, we propose the following \textit{design requirements}, extended from the engineering specifications proposed by Thornton \cite{Thornton2018}. 
 
@@ -158,14 +157,14 @@ To formalize the system requirements for this multi-stake holder problem, we pro
 One of the major factors that determines pedestrian crossing behavior at uncontrolled intersections is \textit{gap acceptance}, defined in this paper as:
 
 \begin{equation}
-\mathrm{gap} = \frac{\mathrm{distance\hspace{1mm}to\hspace{1mm}crosswalk}}{\mathrm{vehicle\hspace{1mm}speed}}
+\mathrm{gap} = \frac{\mathrm{distance\hspace{1mm}to\hspace{1mm}crosswalk}}{\mathrm{vehicle\hspace{1mm}speed}} = \frac{d}{v}
 \end{equation} 
 
-Similar to time to collision (TTC), the safety gap is a measure of how much time there is before the vehicle would enter the crosswalk if it kept its current speed constant. When faced with a stream of traffic at a crosswalk, a pedestrian inherently decides how much of a gap to accept before crossing. The average gap acceptance is reported in the literature to be between 3-7 seconds, meaning pedestrians usually do not cross if the vehicle would enter the crosswalk in under three seconds \cite{DiPietroCharlesMandKing1970}, and are very likely to cross when they have more than seven seconds \cite{Schmidt2009}. 
+Similar to time to collision (TTC), the safety gap is a measure of how much time there is before the vehicle would enter the crosswalk if it kept its current speed constant. When faced with a stream of traffic at an unsignalized crosswalk, a pedestrian inherently decides how much of a time gap to accept before crossing. The average gap acceptance is reported in the literature to be between 3-7 seconds, meaning pedestrians usually do not cross if the vehicle would enter the crosswalk in under three seconds \cite{DiPietroCharlesMandKing1970}, and are very likely to cross when they have more than seven seconds \cite{Schmidt2009}. 
 
 \section{Proposed Control Architecture}
 
-The proposed control architecture is shown in Fig.~\ref{fig:hybridController}, and the algorithm for operation is shown in Algorithm \ref{alg:hybridController}. At heart, the control algorithm uses a feedback-feedforward methodology to compute desired acceleration commands $\ddot{d}$, but computes these commands differently depending on which of four discrete modes the controller is in. The next section will describe the four modes. 
+The proposed control architecture is shown in Fig.~\ref{fig:hybridController}, and the algorithm for operation is shown in Algorithm \ref{alg:hybridController}. At heart, the control algorithm uses a feedback-feedforward methodology to compute desired acceleration commands, but computes these commands differently depending on which of four discrete modes the controller is in. The next section will describe the four modes. 
 
 \begin{figure}
 \centering
@@ -179,28 +178,28 @@ The proposed control architecture is shown in Fig.~\ref{fig:hybridController}, a
 \caption{Parameters for Algorithm 1}\label{tb:params}
 \begin{tabular}{lc}
 Symbol & Definition \\\hline\hline
-$d_\mathrm{max}$ & $\frac{\dot{d}^2}{2a_\mathrm{max}}$ \\
-$d_\mathrm{cmf}$ & $\frac{\dot{d}^2}{2a_\mathrm{cmf}}$ \\\hline
+$d_\mathrm{max}$ & $\frac{v^2}{2a_\mathrm{max}}$ \\
+$d_\mathrm{cmf}$ & $\frac{v^2}{2a_\mathrm{cmf}}$ \\\hline
 \end{tabular}
 \end{center}
 \end{table}
 
 \begin{algorithm} % enter the algorithm environment
-\caption{Calculate $\ddot{d} = f(d, \dot{d}, x_p, \dot{x}_p)$} % give the algorithm a caption
+\caption{Calculate $a = f(d, v, x_p, \dot{x}_p)$} % give the algorithm a caption
 \label{alg:hybridController} % and a label for \ref{} commands later in the document
 \begin{algorithmic}
 \State $state \leftarrow DRIVING$
 \While {$\mathbf{true}$}
 \If {$state = DRIVING$}
-	\State $\ddot{d} \gets k_s(\dot{d}-v_\mathrm{speed limit})$ 
+	\State $a \gets k_s(v-v_\mathrm{speed limit})$ 
 	\If{$d > 0 \hspace{1mm} \mathbf{and} \hspace{1mm} \mathrm{inCrosswalk}(x_p)$}
-		\If{$\mathrm{timeAdvantage}(x_p, \dot{x_p}, d, \dot{d}) > t_{max}$} 
+		\If{$\mathrm{timeAdvantage}(x_p, \dot{x_p}, d, v) > t_{max}$} 
 		\State $state \leftarrow DRIVING$
 		
 		\ElsIf{$d > d_\mathrm{cmf}$}
 		\State $state \leftarrow YIELDING$
 
-	% \ElsIf{$d < \frac{\dot{d}^2}{2a_\mathrm{cmf}} \hspace{1mm} \mathbf{and} \hspace{1mm} d > \frac{\dot{d}^2}{2a_\mathrm{max}}$}
+	% \ElsIf{$d < \frac{v^2}{2a_\mathrm{cmf}} \hspace{1mm} \mathbf{and} \hspace{1mm} d > \frac{v^2}{2a_\mathrm{max}}$}
 
   \ElsIf{$d_\mathrm{max} < d < d_\mathrm{cmf} $}
 
@@ -214,14 +213,14 @@ $d_\mathrm{cmf}$ & $\frac{\dot{d}^2}{2a_\mathrm{cmf}}$ \\\hline
 	\EndIf
 \vspace{3mm}
 \If {$state = YIELDING$}
-\If {$d > d_\mathrm{cmf} + t_{delay}\dot{d}$}
-	\State $\ddot{d}_{des} = 0$
-	\State $\dot{d}_{des} = v_\mathrm{speed limit}$
+\If {$d > d_\mathrm{cmf} + t_{delay}v$}
+	\State $a_{des} = 0$
+	\State $v_{des} = v_\mathrm{speed limit}$
 \Else 
-	\State $\ddot{d}_{des} = -a_\mathrm{cmf}$
-	\State $\dot{d}_{des} = \mathrm{getDesiredSpeed}(d, \dot{d})$
+	\State $a_{des} = -a_\mathrm{cmf}$
+	\State $v_{des} = \mathrm{getDesiredSpeed}(d, v)$
 \EndIf 
-	\State $\ddot{d} = \ddot{d}_{des} + k_s(\dot{d} - \dot{d}_{des})$
+	\State $a = a_{des} + k_s(v - v_{des})$
 
 \If {$\textbf{not} \hspace{1mm} \mathrm{inCrosswalk}(x_p)$} \State $state \leftarrow DRIVING$
 
@@ -231,8 +230,8 @@ $d_\mathrm{cmf}$ & $\frac{\dot{d}^2}{2a_\mathrm{cmf}}$ \\\hline
 \vspace{3mm}
 
 \If {$state = HARD\hspace{1 mm}BRAKING$}
-	\State $\dot{d}_{des} = \mathrm{getDesiredSpeed}(d, \dot{d})$
-	\State $\ddot{d} = -\frac{\dot{d}^2}{2d} + k_s(\dot{d} - \dot{d}_{des})$ 	
+	\State $v_{des} = \mathrm{getDesiredSpeed}(d, v)$
+	\State $a = -\frac{v^2}{2d} + k_s(v - v_{des})$ 	
 	\If {$\textbf{not} \hspace{1 mm} \mathrm{inCrosswalk}(x_p)$} \State $state \leftarrow DRIVING$
 
 	\EndIf
@@ -241,7 +240,7 @@ $d_\mathrm{cmf}$ & $\frac{\dot{d}^2}{2a_\mathrm{cmf}}$ \\\hline
 
 \EndIf
 \If {$state = SPEED\hspace{1mm}UP$}
-	\State $\ddot{d} = a_\mathrm{cmf}$ 	
+	\State $a = a_\mathrm{cmf}$ 	
 	\If {$\textbf{not} \hspace{1mm} \mathrm{inCrosswalk}(x_p) \vee d < 0$} \State $state \leftarrow DRIVING$
 
 	\EndIf
@@ -257,7 +256,7 @@ $d_\mathrm{cmf}$ & $\frac{\dot{d}^2}{2a_\mathrm{cmf}}$ \\\hline
 In the nominal state, the vehicle attempts to drive through the crosswalk at the speed limit $v_\mathrm{speedlimit}$. A simple proportional speed control is applied to keep the vehicle at the speed limit, achieving design constraint 2.a:
 
 \begin{equation}
-	\ddot{d} = k_s(\dot{d} - v_\mathrm{speedlimit})
+	a = k_s(v - v_\mathrm{speedlimit})
 \end{equation}
 
 The controller remains in the driving mode unless the pedestrian begins to enter the crosswalk before the vehicle has passed. In this case, we mathematically define ``beginning to enter" as the instant the pedestrian begins moving towards the crosswalk, even if the pedestrian is currently on the sidewalk:
@@ -284,7 +283,7 @@ Frequently the vehicle will pass through the intersection well before the pedest
 This can be formalized by calculating the \textit{time advantage} $t_\mathrm{adv}$, also known as the \textit{time to collision} as follows:
 
 \begin{equation}
-t_\mathrm{adv} = \frac{d}{\dot{d}} - \frac{x_v - x_p}{\dot{x_p}}
+t_\mathrm{adv} = \frac{x_v - x_p}{\dot{x_p}} - \frac{d}{v}
 \end{equation}
 
 Where $x_v$ is the $x$ position of the vehicle in the crosswalk. Algorithm 1 explicitly allows the vehicle to continue driving through the intersection as long as $t_\mathrm{adv}$ exceeds a specified threshold $t_\mathrm{max}$. 
@@ -296,7 +295,7 @@ If the time advantage is not sufficient for the vehicle to pass through, the aut
 Comfortable braking at a deceleration $-a_\mathrm{cmf}$ is possible if sufficient braking distance exists. The braking distance is derived kinematically as 
 
 \begin{equation}
-d_{brake} = \frac{\dot{d}^2}{2a_\mathrm{cmf}}
+d_{brake} = \frac{v^2}{2a_\mathrm{cmf}}
 \end{equation}
 
 If this holds true when the pedestrian starts to enter the crosswalk, the car enters a \textit{Yielding} mode. 
@@ -306,44 +305,44 @@ If this holds true when the pedestrian starts to enter the crosswalk, the car en
 In the unlikely event a pedestrian begins to cross when the time gap is low (e.g. under 3 seconds), the vehicle will need to prioritize design constraint 1.a and come to a stop at a deceleration higher than $-a_\mathrm{cmf}$. This occurs when the following conditions holds:
 
 \begin{equation}
-\frac{\dot{d}^2}{2a_{max}} < d < \frac{\dot{d}^2}{2a_\mathrm{cmf}}
+\frac{v^2}{2a_\mathrm{max}} < d < \frac{v^2}{2a_\mathrm{cmf}}
 \end{equation}
 
-Where $a_{max}$ is the largest deceleration magnitude allowed by the tire-road friction. 
+Where $a_\mathrm{max}$ is the largest deceleration magnitude allowed by the tire-road friction. 
 
 \subsubsection{Speeding Up}
 
-As a final condition, consider the case where the pedestrian enters the crosswalk just as the vehicle is crossing $d = 0$. In this case, it makes little sense to decelerate, as the vehicle has insufficient space to stop before the crosswalk and will risk being rear-ended or stopping in the crosswalk. It makes more sense in this condition for the vehicle to speed up and exit the crosswalk quickly. As a result, if $d < \frac{\dot{d}}{2a_{max}}$, the vehicle speeds up. 
+As a final condition, consider the case where the pedestrian enters the crosswalk just as the vehicle is crossing $d = 0$. In this case, it makes little sense to decelerate, as the vehicle has insufficient space to stop before the crosswalk and will risk being rear-ended or stopping in the crosswalk. It makes more sense in this condition for the vehicle to speed up and exit the crosswalk quickly. As a result, if $d < \frac{v}{2a_\mathrm{max}}$, the vehicle speeds up. 
 
 \subsection{Yielding}
 
-In the yielding state, the vehicle follows a different version of the feedback-feedforward dynamics. The vehicle first follows the speed limit until it reaches the critical value of $\frac{\dot{d}^2}{2a_\mathrm{cmf}}$. In practice, an additional term $t_\mathrm{delay}\dot{d}$ is added to compensate for the delay in brake communication. 
+In the yielding state, the vehicle follows a different version of the feedback-feedforward dynamics. The vehicle first follows the speed limit until it reaches the critical value of $\frac{v^2}{2a_\mathrm{cmf}}$. In practice, an additional term $t_\mathrm{delay}v$ is added to compensate for the delay in brake communication. 
 
-At the critical distance, the vehicle decelerates at the uniform yielding deceleration of $-a_\mathrm{cmf}$, with an additional feedback term $k_s(\dot{d} - \dot{d}_\mathrm{des}$), where $\dot{d}_\mathrm{des}$ is the desired velocity. The feedback term helps bring the vehicle speed to 0 at the desired stopping point. 
+At the critical distance, the vehicle decelerates at the uniform yielding deceleration of $-a_\mathrm{cmf}$, with an additional feedback term $k_s(v - v_\mathrm{des}$), where $v_\mathrm{des}$ is the desired velocity. The feedback term helps bring the vehicle speed to 0 at the desired stopping point. 
 
-The desired velocity profile $\dot{d}_\mathrm{des}(d)$ for a vehicle decelerating at constant acceleration is given by: 
+The desired velocity profile $v_\mathrm{des}(d)$ for a vehicle decelerating at constant acceleration is given by: 
 
 \begin{equation}
-\dot{d}_\mathrm{des}(d) = \sqrt{2a_\mathrm{cmf}(d-d_o) + \dot{d}_o^2}
+v_\mathrm{des}(d) = \sqrt{2a_\mathrm{cmf}(d-d_o) + v_o^2}
 \end{equation}
 
-Where $d_o$ and $\dot{d}_o$ are the values of $d$ and $\dot{d}$ when the controller first enters the yielding state. Inspection shows that the desired velocity is $\dot{d}_o$ when $d = d_o$ and is 0 when $d = 0$ (recall that we enter the yielding state when $d_o = \frac{\dot{d_o}^2}{2a_\mathrm{cmf}}$). 
+Where $d_o$ and $v_o$ are the values of $d$ and $v$ when the controller first enters the yielding state. Inspection shows that the desired velocity is $v_o$ when $d = d_o$ and is 0 when $d = 0$ (recall that we enter the yielding state when $d_o = \frac{\dot{d_o}^2}{2a_\mathrm{cmf}}$). 
 
 The controller exits the yielding mode and returns to the driving mode once the pedestrian clears the crosswalk (e.g. once $x > x_F$ in (\ref{eq:crossing})). 
 
 \subsection{Hard Braking}
 
-In the hard braking state, the vehicle follows a similar feedback-feedforward algorithm, but the desired feedforward deceleration in this case is given by $\ddot{d} = -\frac{\dot{d}^2}{2d}$. Integrating to find the desired speed profile $\dot{d}_\mathrm{des}(d)$ yields the following deceleration: 
+In the hard braking state, the vehicle follows a similar feedback-feedforward algorithm, but the desired feedforward deceleration in this case is given by $a = -\frac{v^2}{2d}$. Integrating to find the desired speed profile $v_\mathrm{des}(d)$ yields the following velocity profile: 
 
 \begin{equation}
-\dot{d}_\mathrm{des}(d) = \frac{\dot{d}_o}{\sqrt{d_o}}\sqrt{d}
+v_\mathrm{des}(d) = \frac{v_o}{\sqrt{d_o}}\sqrt{d}
 \end{equation}     
 
-Where $d_o$ and $\dot{d}_o$ are the values of $d$ and $\dot{d}$ when the controller first enters the braking state. Again, the controller exits the braking mode and returns to the driving mode once the pedestrian clears the crosswalk. 
+Where $d_o$ and $v_o$ are the values of $d$ and $v$ when the controller first enters the braking state. Again, the controller exits the braking mode and returns to the driving mode once the pedestrian clears the crosswalk. 
 
 \subsection{Speed Up}
 
-In the speed up state, there is no need to follow an exact speed profile as the vehicle is merely trying to exit the crosswalk area slightly faster. In this case, the commanded acceleration is $\ddot{d} = a_\mathrm{cmf}$ until the pedestrian clears the crosswalk or once the vehicle passes the stopping location (i.e. $d< 0$). 
+In the speed up state, there is no need to follow an exact speed profile as the vehicle is trying to exit the crosswalk area slightly faster. In this case, the commanded acceleration is $a = a_\mathrm{cmf}$ until the pedestrian clears the crosswalk or once the vehicle passes the stopping location (i.e. $d< 0$). 
 
 \section{Evaluation Methodology and Comparison with POMDP}
 
@@ -351,7 +350,7 @@ In the speed up state, there is no need to follow an exact speed profile as the 
 
 In order to check performance of the algorithm, both simulation and experimental studies were undertaken. The simulation results focused on testing Algorithm 1 against the specified design requirements over many pedestrian crossings. 
 
-The algorithm is validated in simulation via a built-from-scratch crosswalk simulation environment (Fig. \ref{fig:simFramework}) developed in Python. The simulation environment is built on the ROS robotics interface to enable easy porting of the control architecture to the experimental vehicle in Section \ref{sec:expres}, and for easy comparison to the method provided by Thornton \cite{Thornton2018}. The simulation includes features such as customizable lanes, the pedestrian crossing on the right or the left, and animation capabilities.   
+The algorithm is validated in simulation via a built-from-scratch crosswalk simulation environment (Fig. \ref{fig:simFramework}) developed in Python. The simulation environment is built on the ROS robotics interface to enable easy porting of the control architecture to the experimental vehicle in Section \ref{sec:expres}, and for ease of comparison to the method provided by Thornton \cite{Thornton2018}.   
 
 \begin{figure}
 \centering
@@ -387,17 +386,17 @@ Maximum acceleration & $a_\mathrm{max}$ & 9 & $\mathrm{m/s^2}$ \\\hline
 \end{table}
 
 \subsection{Alternate Approach - POMDP}
-The method proposed by Thornton \cite{Thornton2018} models the unsignalized crosswalk problem as a Partially 
-Observable Markov Decision Process (POMDP) \cite{Kochenderfer}. The relevant discretized state variable $x$ is given by
+The method proposed by Thornton \cite{Thornton2018} offers a point of comparison to the proposed algorithm, and models the unsignalized crosswalk problem as a Partially 
+Observable Markov Decision Process (POMDP) \cite{Kochenderfer2015}. The relevant discretized state variable $x$ is given by
 
 \begin{equation}
-x_t = [\dot{d}_t \hspace{2mm} c_t \hspace{2mm} d_t \hspace{2mm} p_t \hspace{2mm} \ddot{d}_{t-1}]^T
+x_t = [v_t \hspace{2mm} c_t \hspace{2mm} d_t \hspace{2mm} p_t \hspace{2mm} a_{t-1}]^T
 \end{equation}
 
-Where $c_t$ is a Boolean variable that is true when the pedestrian is in the crosswalk, $\ddot{d}_{t-1}$ is the previous acceleration command, and $p_t$ is the pedestrian posture, which can be \textit{distracted}, \textit{walking}, or \textit{stopped}. Using a point mass model for the vehicle state transition dynamics and empirical data for the $c_t$dynamics, the authors compute a closed loop policy $\ddot{d}_t = \pi(x_t)$ using the QMDP solver \cite{QMDP}. The reward function that is optimized is given by: 
+Where $c_t$ is a Boolean variable that is true when the pedestrian is in the crosswalk, $a_{t-1}$ is the previous acceleration command, and $p_t$ is the pedestrian posture, which can be \textit{distracted}, \textit{walking}, or \textit{stopped}. Using a point mass model for the vehicle state transition dynamics and empirical data for the $c_t$ dynamics, the authors compute a closed loop policy $a_t = \pi(x_t)$ using the QMDP solver \cite{Kochenderfer2015}. The reward function that is optimized is given by: 
 
 \begin{equation}
-r(x_t, \ddot{d}_t) = g_\mathrm{legality} + g_\mathrm{safety} + g_\mathrm{efficient} + g_\mathrm{smooth}
+r(x_t, a_t) = g_\mathrm{legality} + g_\mathrm{safety} + g_\mathrm{efficient} + g_\mathrm{smooth}
 \end{equation}
 
 Where $g_\mathrm{legality}$ and $g_\mathrm{safety}$ are terms encouraging the vehicle to stop when the pedestrian is in the crosswalk, $g_\mathrm{efficient}$ is a term encouraging high velocity when there is no pedestrian, and $g_\mathrm{smooth}$ encourages the vehicle to avoid abrupt changes in acceleration. Note that for our implementation of the method in \cite{Thornton2018}, we assumed $p_t$ was set to \textit{stopped}.  
@@ -413,7 +412,7 @@ Figure \ref{fig:velPlot1} shows simulation results for the case where the pedest
 \label{fig:velPlot1}
 \end{figure}
 
-Figure \ref{fig:velPlot2} shows the same simulation results, but for the case where the pedestrian enters the crosswalk on the opposite side of the road as the vehicle. Again, the total number of pedestrian crossing trials conducted was 750, with 375 trials for each side.  
+Figure \ref{fig:velPlot2} shows the same simulation results, but for the case where the pedestrian enters the crosswalk on the opposite side of the road as the vehicle. Again, the total number of pedestrian crossing trials conducted was 1500, with 750 trials for each method.  
 
 \begin{figure}
 \centering
@@ -468,7 +467,7 @@ Another note is that the POMDP only models the pedestrian as being in the crossw
 \subsection{Smoothness}
 The requirement of keeping a low acceleration magntude where possible is validated through (e) and (f) of Figures~\ref{fig:velPlot1} and \ref{fig:velPlot2}, which plots the peak acceleration / deceleration magnitude for each simulated crossing. The vehicle is able to maintain a peak acceleration of 2 $\mathrm{m/s^2}$ for the vast majority of simulated trials, particularly when the pedestrian crosses from the opposing side of the road or when the vehicle is in the second to right line.
 
-However, there are a handful of simulated trials in Fig.~\ref{fig:velPlot1} when the pedestrian accepts a gap between 1.75-2.5 seconds and the vehicle is in Lane A. In this case, the vehicle must enter the \textit{Hard Braking} state and decelerate at a magnitude higher than $a_\mathrm{cmf}$. This is required in order to meet the collision avoidance constraint, which naturally takes priority. Again, note that this situation occurs relatively rarely, as pedestrians typically accept gaps between 3-6 seconds and are unlikely to risk hazardous behaviors unless distracted. 
+However, there are a handful of simulated trials in Fig.~\ref{fig:velPlot1} when the pedestrian accepts a gap between 1.75-2.5 seconds and the vehicle is in Lane A. In this case, the vehicle must enter the \textit{Hard Braking} state and decelerate at a magnitude higher than $a_\mathrm{cmf}$. This is required in order to meet the collision avoidance constraint, which naturally takes priority.
 
 \subsubsection{Comparison with POMDP}
 Both the POMDP and the hybrid controller must decelerate at a high magnitude when a pedestrian accepts a gap between 1.75-2.5 seconds. One relative advantage of the POMDP is that it is able to decelerate at rates below $a_\mathrm{cmf}$ - at pedestrian accepted gaps of 5-6 seconds, the vehicle decelerates early and at a very low rate in order to avoid excessive jerk. However, by using the same policy for all four simulated scenarios and by not considering the ability to speed through the intersection, the POMDP also tends to decelerate when driving through the intersection would have sufficed. 
@@ -539,7 +538,7 @@ Figure \ref{fig:expPlot}. In Trial 1, the virtual pedestrian accepts a gap of fo
 \label{fig:expPlot}
 \end{figure}
 
-In Trial 2, the pedestrian enters from the right with just 1 second before collision. This experiment, while unlikely in reality, was undertaken to verify the vehicle would not brake, but accelerate through the intersection. Trial 3 represents a situation where the pedestrian crosses with a large (7 second) gap. In this case, the pedestrian has enough time to almost cross before the vehicle needs to yield, resulting in the vehicle only needing to slow down slightly. 
+In Trial 2, the pedestrian enters from the right with just 1 second before collision. This experiment was undertaken to verify the vehicle would not brake, but accelerate through the intersection. Trial 3 represents a situation where the pedestrian crosses with a large (7 second) gap. In this case, the pedestrian has enough time to almost cross before the vehicle needs to yield, resulting in the vehicle only needing to slow down slightly. 
 
 In Trial 4, the pedestrian exhibits risky behavior, crossing with a 2.5 second gap. In this case, the vehicle has enough time to brake, but must decelerate rapidly at 5 $\mathrm{m/s^2}$ in the \textit{hard braking} mode. Given the brake delay in the experimental vehicle, significant overshoot occurs, and the vehicle stops nearly 2.5 meters ahead of the desired stopping location. However, given that the desired stop location is 5 meters ahead of the crosswalk, this is sufficient to avoid a collision. Note that unlike in the yielding mode, the brake delay can not be compensated for because the pedestrian enters unexpectedly. 
 
