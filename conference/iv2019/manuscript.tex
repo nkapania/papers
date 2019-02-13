@@ -37,7 +37,7 @@
 A Hybrid Control Design for Autonomous Vehicles at Uncontrolled Intersections}
 
 
-\author{Nitin R. Kapania$^{1}$, Vijay Govindarajan$^{2}$, Francesco Borrelli$^{2}$% <-this % stops a space
+\author{Nitin R. Kapania$^{1}$, Vijay Govindarajan$^{2}$, Francesco Borrelli$^{2}$, J. Christian Gerdes$^{1}$% <-this % stops a space
 \thanks{*This work was supported by the Hyundai Center of Excellence}% <-this % stops a space
 \thanks{$^{1}$Dept. of Mechanical Engineering, Stanford University. Nitin Kapania is also a visiting scholar at UC Berkeley.}%
 \thanks{$^{2}$Dept. of Mechanical Engineering, UC Berkeley.}%
@@ -142,11 +142,13 @@ To formalize the system requirements for this multi-stake holder problem, we pro
  2. Efficiency & a. Average speed: Minimize \\ 
         & deviation from speed of traffic \\  
         & b. Wait for pedestrian crossing \\
-        & event to materialize before yielding. \\ 
+        & event to materialize before \\
+        & yielding. \\ 
 
         & \\
- 3. Smoothness & a. Low acceleration: Nominal brake \\ 
- 			  & and acceleration limits of 2 $\mathrm{m/s^2}$ \\
+ 3. Smoothness & a. Low acceleration: Nominal \\ 
+ 			  & brake and acceleration limits \\
+ 			  & of 2 $\mathrm{m/s^2}$ \\
 
 
 \end{tabular}
@@ -229,16 +231,16 @@ $d_\mathrm{cmf}$ & $\frac{v^2}{2a_\mathrm{cmf}}$ \\\hline
 
 \vspace{3mm}
 
-\If {$state = HARD\hspace{1 mm}BRAKING$}
+\If {$state = HARD\hspace{1mm}BRAKING$}
 	\State $v_{des} = \mathrm{getDesiredSpeed}(d, v)$
 	\State $a = -\frac{v^2}{2d} + k_s(v - v_{des})$ 	
-	\If {$\textbf{not} \hspace{1 mm} \mathrm{inCrosswalk}(x_p)$} \State $state \leftarrow DRIVING$
+	\If {$\textbf{not} \hspace{1mm} \mathrm{inCrosswalk}(x_p)$} \State $state \leftarrow DRIVING$
 
 	\EndIf
 	\EndIf
 
 
-\EndIf
+% \EndIf
 \If {$state = SPEED\hspace{1mm}UP$}
 	\State $a = a_\mathrm{cmf}$ 	
 	\If {$\textbf{not} \hspace{1mm} \mathrm{inCrosswalk}(x_p) \vee d < 0$} \State $state \leftarrow DRIVING$
@@ -476,10 +478,23 @@ However, there are a handful of simulated trials in Fig.~\ref{fig:velPlot1} when
 \label{fig:crosswalkpic}
 \end{figure}
 
+\begin{table}[h]
+\begin{center}
+\caption{Experimental Parameters}\label{tb:expparams2}
+\begin{tabular}{llll}
+Trial Number & Gap Accepted (sec) & Pedestrian Entry & Mode\\\hline\hline
+1 & 4.0 & right & Yield\\ 
+2 & 1.0 & right & Speed Up\\ 
+3 & 7.0 & right & Yield\\ 
+4 & 2.5 & right & Hard Brake\\ 
+5 & 3.0 & left & Yield \\ 
+6 & 1.0 & left & Speed Up\\\hline
+\end{tabular}
+\end{center}
+\end{table}
 
 \section{Experimental Results}
 \label{sec:expres}
-
 
 The proposed hybrid controller is tested experimentally using a Hyundai Genesis G80 experimental testbed, shown in Fig. \ref{fig:g80}. A two lane unsignalized intersection near the Berkeley campus was chosen for the experimental validation. In lieu of an actual pedestrian, a pedestrian was simulated virtually using the ROS simulation architecture, with the position and velocity of the pedestrian passed to the controller. Differential GPS was used to record the distance to the crosswalk, and a steering controller from \cite{Kapania2015} was used to autonomously steer the vehicle down the road. Relevant parameters of the experiments are shown below in Table \ref{tb:expparams}. The experiment consisted of six trials intended to show operation of the four discrete modes of the controller. A description of the trial parameters are shown in Table \ref{tb:expparams2}. 
 
@@ -500,23 +515,7 @@ Maximum acceleration & $a_\mathrm{max}$ & 9 & $\mathrm{m/s^2}$ \\\hline
 \end{center}
 \end{table}
 
-\begin{table}[h]
-\begin{center}
-\caption{Experimental Parameters}\label{tb:expparams2}
-\begin{tabular}{llll}
-Trial Number & Gap Accepted (sec) & Pedestrian Entry & Mode\\\hline\hline
-1 & 4.0 & right & Yield\\ 
-2 & 1.0 & right & Speed Up\\ 
-3 & 7.0 & right & Yield\\ 
-4 & 2.5 & right & Hard Brake\\ 
-5 & 3.0 & left & Yield \\ 
-6 & 1.0 & left & Speed Up\\\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-The experimental velocity and acceleration is plotted vs $d$ in 
-Figure \ref{fig:expPlot}. In Trial 1, the pedestrian accepts a gap of four seconds, giving the vehicle enough time to yield at a deceleration of 2 $\mathrm{m/s^2}$. Note that the low level longitudinal controller exhibits a large time delay between commanded and actual acceleration. Because this is accounted for in Algorithm 1, the vehicle is able to brake early and the vehicle is stopped right at $d=0$ before the pedestrian exits the crosswalk and the vehicle speeds back up. 
+The experimental velocity and acceleration is plotted vs $d$ in Figure \ref{fig:expPlot}. In Trial 1, the pedestrian accepts a gap of four seconds, giving the vehicle enough time to yield at a deceleration of 2 $\mathrm{m/s^2}$. Note that the low level longitudinal controller exhibits a large time delay between commanded and actual acceleration. Because this is accounted for in Algorithm 1, the vehicle is able to brake early and the vehicle is stopped right at $d=0$ before the pedestrian exits the crosswalk and the vehicle speeds back up. 
 
 \begin{figure}[h]
 \centering
