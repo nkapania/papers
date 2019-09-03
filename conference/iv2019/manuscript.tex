@@ -34,7 +34,7 @@
 %\usepackage{amssymb} % assumes amsmath package installed
 
 \title{\LARGE \bf
-A Hybrid Control Design for Autonomous Vehicles at Uncontrolled Intersections}
+A Hybrid Control Design for Autonomous Vehicles at Uncontrolled Crosswalks}
 
 
 \author{Nitin R. Kapania$^{1}$, Vijay Govindarajan$^{2}$, Francesco Borrelli$^{2}$, J. Christian Gerdes$^{1}$% <-this % stops a space
@@ -74,7 +74,7 @@ While autonomous vehicles have the potential to save thousands of lives every ye
 
 \subsection{Prior Art}
 
-The need to further understand pedestrian behavior for autonomous driving has created a signficant body of research focused on modeling pedestrian behavior given various sensor inputs. Keller et al. \cite{Keller2014} presented a study on pedestrian path prediction and action classification (e.g. crossing vs. waiting) using Gaussian process dynamical models and trajectory matching from optical data. Several other techniques for pedestrian trajectory prediction have been proposed, including LQR \cite{Batkovic}, set-based reachability analysis \cite{Koschi2018}, and Markov processes \cite{Karasev2016}. Another branch of literature focuses on modeling pedestrian crossing behavior in the form of video analysis. Schroeder and Rouphail \cite{Schroeder2011} explored factors associated with driver yielding behavior at unsignalized pedestrian crossings. Using logistic regression, the authors found that drivers are more likely to yield to assertive pedestrians who walk briskly in their approach to a crosswalk. Kadali and Perumal \cite{RaghuramKadali2012} studied the ``gap acceptance" behavior of pedestrians at mid-block crosswalks, and found that the gap accepted for crossing was explained by factors such as crossing direction, vehicle speed, and pedestrian age. Yannis et al. \cite{Yannis2013} and Sun et al.\cite{Sun2002} also found that gap acceptance was influenced by the size of the oncoming vehicle and the presence of other pedestrians. 
+The need to further understand pedestrian behavior for autonomous driving has created a signficant body of research focused on modeling pedestrian behavior given various sensor inputs. Keller et al. \cite{Keller2014} presented a study on pedestrian path prediction and action classification (e.g. crossing vs. waiting) using Gaussian process dynamical models and trajectory matching from optical data. Several other techniques for pedestrian trajectory prediction have been proposed, including LQR \cite{batkovic2018computationally}, set-based reachability analysis \cite{Koschi2018}, and Markov processes \cite{Karasev2016}. Another branch of literature focuses on modeling pedestrian crossing behavior in the form of video analysis. Schroeder and Rouphail \cite{Schroeder2011} explored factors associated with driver yielding behavior at unsignalized pedestrian crossings. Using logistic regression, the authors found that drivers are more likely to yield to assertive pedestrians who walk briskly in their approach to a crosswalk. Kadali and Perumal \cite{RaghuramKadali2012} studied the ``gap acceptance" behavior of pedestrians at mid-block crosswalks, and found that the gap accepted for crossing was explained by factors such as crossing direction, vehicle speed, and pedestrian age. Yannis et al. \cite{Yannis2013} and Sun et al.\cite{Sun2002} also found that gap acceptance was influenced by the size of the oncoming vehicle and the presence of other pedestrians. 
 
 A small but rapidly growing body of literature specifically studies the interaction between pedestrians and autonomous vehicles at crosswalks. An excellent review of these studies was conducted by Rasouli et al. \cite{Rasouli}. As an example, Rothenbucher et al. \cite{Rothenbucher2016} studied the interaction between pedestrians and driverless vehicles by constructing a car seat costume to disguise a driver. To improve the issue of trust, several researchers have also developed external communication interfaces to more clearly broadcast the intent of the autonomous vehicle (\cite{Matthews}, \cite{Lagstrom2015}). 
 
@@ -194,7 +194,7 @@ $d_\mathrm{cmf}$ & $\frac{v^2}{2a_\mathrm{cmf}}$ \\\hline
 \While {$\mathbf{true}$}
 \If {$state = DRIVING$}
 	\State $a \gets k_s(v-v_\mathrm{speed limit})$ 
-	\If{$d > 0 \hspace{1mm} \mathbf{and} \hspace{1mm} \mathrm{inCrosswalk}(x_p)$}
+	\If{$d > 0 \hspace{1mm} \mathbf{and} \hspace{1mm} \mathrm{inCrosswalk}(x_p, \dot{x_p})$}
 		\If{$\mathrm{timeAdvantage}(x_p, \dot{x_p}, d, v) > \tau_\mathrm{max}$} 
 		\State $state \leftarrow DRIVING$
 		
@@ -215,7 +215,7 @@ $d_\mathrm{cmf}$ & $\frac{v^2}{2a_\mathrm{cmf}}$ \\\hline
 	\EndIf
 \vspace{3mm}
 \If {$state = YIELDING$}
-\If {$d > d_\mathrm{cmf} + t_{delay}v$}
+\If {$d > d_\mathrm{cmf} + t_\mathrm{delay}v$}
 	\State $a_{des} = 0$
 	\State $v_{des} = v_\mathrm{speed limit}$
 \Else 
@@ -224,7 +224,7 @@ $d_\mathrm{cmf}$ & $\frac{v^2}{2a_\mathrm{cmf}}$ \\\hline
 \EndIf 
 	\State $a = a_{des} + k_s(v - v_{des})$
 
-\If {$\textbf{not} \hspace{1mm} \mathrm{inCrosswalk}(x_p)$} \State $state \leftarrow DRIVING$
+\If {$\textbf{not} \hspace{1mm} \mathrm{inCrosswalk}(x_p, \dot{x_p})$} \State $state \leftarrow DRIVING$
 
 \EndIf
 \EndIf
@@ -234,7 +234,7 @@ $d_\mathrm{cmf}$ & $\frac{v^2}{2a_\mathrm{cmf}}$ \\\hline
 \If {$state = HARD\hspace{1mm}BRAKING$}
 	\State $v_{des} = \mathrm{getDesiredSpeed}(d, v)$
 	\State $a = -\frac{v^2}{2d} + k_s(v - v_{des})$ 	
-	\If {$\textbf{not} \hspace{1mm} \mathrm{inCrosswalk}(x_p)$} \State $state \leftarrow DRIVING$
+	\If {$\textbf{not} \hspace{1mm} \mathrm{inCrosswalk}(x_p, \dot{x_p})$} \State $state \leftarrow DRIVING$
 
 	\EndIf
 	\EndIf
@@ -243,7 +243,7 @@ $d_\mathrm{cmf}$ & $\frac{v^2}{2a_\mathrm{cmf}}$ \\\hline
 % \EndIf
 \If {$state = SPEED\hspace{1mm}UP$}
 	\State $a = a_\mathrm{cmf}$ 	
-	\If {$\textbf{not} \hspace{1mm} \mathrm{inCrosswalk}(x_p) \vee d < 0$} \State $state \leftarrow DRIVING$
+	\If {$\textbf{not} \hspace{1mm} \mathrm{inCrosswalk}(x_p, \dot{x_p}) \vee d < 0$} \State $state \leftarrow DRIVING$
 
 	\EndIf
 	\EndIf
@@ -360,7 +360,7 @@ The algorithm is validated in simulation via a built-from-scratch crosswalk simu
 \label{fig:simFramework}
 \end{figure}
 
-To simulate random pedestrian crossing events, a pedestrian is spawned on the sidewalk near the entrance to the crosswalk. The pedestrian accepts a randomly sized time gap in the traffic stream to cross the road at constant speed $\dot{x}_p$. The size of the time gap is drawn from a normal distribution with mean $\mu_{gap}$ and standard deviation $\sigma_{gap}$. Statistics for $\mu_{gap}$ and $\sigma_{gap}$ are obtained from results of the video graphic analysis by Feliciani et al. \cite{Feliciani2017}. The ego vehicle's response to the pedestrian is simulated over Algorithm 1 for the parameters shown in Table \ref{tb:params}. 
+To simulate random pedestrian crossing events, a pedestrian is spawned on the sidewalk near the entrance to the crosswalk. The pedestrian accepts a randomly sized time gap in the traffic stream to cross the road at constant speed $\dot{x}_p$. In reality, the pedestrian may accelerate or decelerate in the crosswalk, which would need to be addressed in the time advantage calculation. The size of the time gap is drawn from a normal distribution with mean $\mu_{gap}$ and standard deviation $\sigma_{gap}$. Statistics for $\mu_{gap}$ and $\sigma_{gap}$ are obtained from results of the video graphic analysis by Feliciani et al. \cite{Feliciani2017}. The ego vehicle's response to the pedestrian is simulated over Algorithm 1 for the parameters shown in Table \ref{tb:params}. 
 
 \begin{table}[h]
 \begin{center}
@@ -396,7 +396,7 @@ Where $c_t$ is a Boolean variable that is true when the pedestrian is in the cro
 r(x_t, a_t) = g_\mathrm{legality} + g_\mathrm{safety} + g_\mathrm{efficient} + g_\mathrm{smooth}
 \end{equation}
 
-Where $g_\mathrm{legality}$ and $g_\mathrm{safety}$ are terms encouraging the vehicle to stop when the pedestrian is in the crosswalk, $g_\mathrm{efficient}$ is a term encouraging high velocity when there is no pedestrian, and $g_\mathrm{smooth}$ encourages the vehicle to avoid abrupt changes in acceleration. For our implementation of \cite{Thornton2018}, we assumed $p_t$ was set to \textit{stopped}. 
+Where $g_\mathrm{legality}$ and $g_\mathrm{safety}$ are terms encouraging the vehicle to stop when the pedestrian is in the crosswalk, $g_\mathrm{efficient}$ is a term encouraging high velocity when there is no pedestrian, and $g_\mathrm{smooth}$ encourages the vehicle to avoid abrupt changes in acceleration. For our implementation of \cite{Thornton2018}, we assumed $p_t$ was set to \textit{stopped}, indicating a pedestrian stopped at the side of the crosswalk making eye contact with the vehicle.  
 
 \section{Simulation Results}
 
@@ -418,7 +418,7 @@ Figure \ref{fig:velPlot1} shows simulation results for the case where the pedest
 
 \subsection{Safety and Legality}
 
-To meet the collision avoidance design requirement, we generated enough simulations to ensure errant pedestrian crossing behavior at ``risky" accepted gaps ($<$~3 seconds). The minimum distance between the vehicle and the pedestrian for each trial is shown in (a) and (b) of Figures ~\ref{fig:velPlot1} and \ref{fig:velPlot2}. The vehicle is able to maintain a safe distance of at least four meters from the pedestrian for the case where the vehicle is Lane B. This is because the algorithm has enough time to react to a pedestrian crossing no matter what size gap is accepted. 
+To meet the collision avoidance design requirement, we generated enough simulations to ensure errant pedestrian crossing behavior at ``risky" accepted gaps ($<$~3 seconds). The minimum distance between the vehicle and the pedestrian for each trial is shown in (a) and (b) of Figures ~\ref{fig:velPlot1} and \ref{fig:velPlot2}. The vehicle is able to maintain a safe distance of at least four meters from the pedestrian for the case where the vehicle is in Lane B. This is because the algorithm has enough time to react to a pedestrian crossing no matter what size gap is accepted. 
 
 The riskiest case occurs when the vehicle is in Lane A and the pedestrian crosses from the right side, accepting a gap between 1.25 and 1.75 seconds. This is unlikely given gap acceptance statistics reported in the literature \cite{Rasouli}\cite{Feliciani2017}, but would represent a safety risk given the vehicle has limited time to react. However, since the algorithm recognizes that braking will not clear the crosswalk, the vehicle is able to speed up and maintain at least 2 meters of lateral distance from the pedestrian at all times. Future work will use formal verification methods in order to show safety for all pedestrian accepted gaps. 
 
@@ -426,7 +426,7 @@ The riskiest case occurs when the vehicle is in Lane A and the pedestrian crosse
 
 \subsubsection{Comparison with POMDP}
 
-In terms of safety and legality, both the POMDP and hybrid controller maintain safe distances from the pedestrian across all trials. For the hybrid controller, this is because the need to stop at $d=0$ is explicitly encoded in the design. For the POMDP, this is due to the reward function terms $g_\mathrm{legality}$ and $g_\mathrm{safety}$ 
+In terms of safety and legality, both the POMDP and hybrid controller maintain safe distances from the pedestrian across all trials. For the hybrid controller, this is because the need to stop at $d=0$ is explicitly encoded in the design. For the POMDP, this is due to the reward function terms $g_\mathrm{legality}$ and $g_\mathrm{safety}$. 
 
 \subsection{Efficiency}
 
@@ -466,14 +466,14 @@ However, there are a handful of simulated trials in Fig.~\ref{fig:velPlot1} when
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=3.0in]{figures/G80.jpg}
+\includegraphics[width=2.5in]{figures/G80.jpg}
 \caption{Hyundai Genesis G80 experimental testbed.}
 \label{fig:g80}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=2.0in]{figures/crosswalkPic.png}
+\includegraphics[width=1.5in]{figures/crosswalkPic.png}
 \caption{Two lane crosswalk used for experimental testing.}
 \label{fig:crosswalkpic}
 \end{figure}

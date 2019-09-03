@@ -33,10 +33,10 @@ for i = 1:N
     qsm(i) = SIM_QM(i).eRMS;
 end
 
-semilogy(0:4, pde,'ko-','MarkerFaceColor','k','LineWidth',2);
+semilogy(0:N-1, pde,'ko-','MarkerFaceColor','k','LineWidth',2);
 hold on; grid on;
-semilogy(0:4, qsm,'bs-','MarkerSize',8,'LineWidth',2);
-semilogy(0:4, qse,'r*-','MarkerFaceColor','r','LineWidth',2);
+semilogy(0:N-1, qsm,'bs-','MarkerSize',8,'LineWidth',2);
+semilogy(0:N-1, qse,'r*-','MarkerFaceColor','r','LineWidth',2);
 legend('PD', 'Q-MIMO','Q-SISO');
 
 %xlabel('Iteration Number','FontName','Arial','FontSize',14)
@@ -51,10 +51,10 @@ for i = 1:N
     qsm(i) = SIM_QM(i).eRMS;
 end
 
-semilogy(0:4, pde,'ko-','MarkerFaceColor','k','LineWidth',2);
+semilogy(0:N-1, pde,'ko-','MarkerFaceColor','k','LineWidth',2);
 hold on; grid on;
-semilogy(0:4, qsm,'bs-','MarkerSize',8,'LineWidth',2);
-semilogy(0:4, qse,'r*-','MarkerFaceColor','r','LineWidth',2);
+semilogy(0:N-1, qsm,'bs-','MarkerSize',8,'LineWidth',2);
+semilogy(0:N-1, qse,'r*-','MarkerFaceColor','r','LineWidth',2);
 legend('PD', 'Q-MIMO','Q-SISO');
 
 
@@ -70,10 +70,10 @@ for i = 1:N
     qsm(i) = SIM_QM(i).eRMS;
 end
 
-semilogy(0:4, pde,'ko-','MarkerFaceColor','k','LineWidth',2);
+semilogy(0:N-1, pde,'ko-','MarkerFaceColor','k','LineWidth',2);
 hold on; grid on;
-semilogy(0:4, qsm,'bs-','MarkerSize',8,'LineWidth',2);
-semilogy(0:4, qse,'r*-','MarkerFaceColor','r','LineWidth',2);
+semilogy(0:N-1, qsm,'bs-','MarkerSize',8,'LineWidth',2);
+semilogy(0:N-1, qse,'r*-','MarkerFaceColor','r','LineWidth',2);
 legend('PD', 'Q-MIMO','Q-SISO');
 
 
@@ -90,10 +90,10 @@ for i = 1:N
     qsm(i) = SIM_QM(i).eRMS;
 end
 
-semilogy(0:4, pde,'ko-','MarkerFaceColor','k','LineWidth',2);
+semilogy(0:N-1, pde,'ko-','MarkerFaceColor','k','LineWidth',2);
 hold on; grid on;
-semilogy(0:4, qsm,'bs-','MarkerSize',8,'LineWidth',2);
-semilogy(0:4, qse,'r*-','MarkerFaceColor','r','LineWidth',2);
+semilogy(0:N-1, qsm,'bs-','MarkerSize',8,'LineWidth',2);
+semilogy(0:N-1, qse,'r*-','MarkerFaceColor','r','LineWidth',2);
 legend('PD', 'Q-MIMO','Q-SISO');
 
 
@@ -113,10 +113,10 @@ for i = 1:N
     qsv(i) = SIM_QM(i).vRMS;
 end
 
-semilogy(0:4, pdv,'ko-','MarkerFaceColor','k','LineWidth',2);
+semilogy(0:N-1, pdv,'ko-','MarkerFaceColor','k','LineWidth',2);
 hold on; grid on;
-semilogy(0:4, qsv,'bs-','MarkerSize',8,'LineWidth',2);
-semilogy(0:4, qsv,'r*-','MarkerFaceColor','r','LineWidth',2);
+semilogy(0:N-1, qsv,'bs-','MarkerSize',8,'LineWidth',2);
+semilogy(0:N-1, qsv,'r*-','MarkerFaceColor','r','LineWidth',2);
 legend('PD', 'Q-MIMO','Q-SISO');
 
 %xlabel('Iteration Number','FontName','Arial','FontSize',14)
@@ -131,10 +131,10 @@ for i = 1:N
     qsv(i) = SIM_QM(i).vRMS;
 end
 
-semilogy(0:4, pdv,'ko-','MarkerFaceColor','k','LineWidth',2);
+semilogy(0:N-1, pdv,'ko-','MarkerFaceColor','k','LineWidth',2);
 hold on; grid on;
-semilogy(0:4, qsv,'bs-','MarkerSize',8,'LineWidth',2);
-semilogy(0:4, qsv,'r*-','MarkerFaceColor','r','LineWidth',2);
+semilogy(0:N-1, qsv,'bs-','MarkerSize',8,'LineWidth',2);
+semilogy(0:N-1, qsv,'r*-','MarkerFaceColor','r','LineWidth',2);
 legend('PD', 'Q-MIMO','Q-SISO');
 
 
@@ -150,10 +150,10 @@ for i = 1:N
     qsv(i) = SIM_QM(i).vRMS;
 end
 
-semilogy(0:4, pdv,'ko-','MarkerFaceColor','k','LineWidth',2);
+semilogy(0:N-1, pdv,'ko-','MarkerFaceColor','k','LineWidth',2);
 hold on; grid on;
-semilogy(0:4, qsv,'bs-','MarkerSize',8,'LineWidth',2);
-semilogy(0:4, qsv,'r*-','MarkerFaceColor','r','LineWidth',2);
+semilogy(0:N-1, qsv,'bs-','MarkerSize',8,'LineWidth',2);
+semilogy(0:N-1, qsv,'r*-','MarkerFaceColor','r','LineWidth',2);
 legend('PD', 'Q-MIMO','Q-SISO');
 
 xlabel('Iteration Number','FontName','Arial','FontSize',14)
@@ -169,10 +169,10 @@ for i = 1:N
     qsv(i) = SIM_QM(i).vRMS;
 end
 
-semilogy(0:4, pdv,'ko-','MarkerFaceColor','k','LineWidth',2);
+semilogy(0:N-1, pdv,'ko-','MarkerFaceColor','k','LineWidth',2);
 hold on; grid on;
-semilogy(0:4, qsv,'bs-','MarkerSize',8,'LineWidth',2);
-semilogy(0:4, qsv,'r*-','MarkerFaceColor','r','LineWidth',2);
+semilogy(0:N-1, qsv,'bs-','MarkerSize',8,'LineWidth',2);
+semilogy(0:N-1, qsv,'r*-','MarkerFaceColor','r','LineWidth',2);
 legend('PD', 'Q-MIMO','Q-SISO');
 
 xlabel('Iteration Number','FontName','Arial','FontSize',14)
