@@ -1,0 +1,57 @@
+% Document settings
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{setspace}
+\usepackage{amsmath,amssymb,gensymb,epsfig, epstopdf}
+\usepackage{xcolor}
+\pagestyle{plain}
+\setlength\parindent{0pt}
+\setlength{\parskip}{1em}
+
+\begin{document}
+
+% Header
+\textbf{Nitin Kapania} \\
+\textbf{Neural Network Feedforward} \\
+
+Ignoring state history, we have:
+
+\begin{equation}
+\dot{U_y}, \dot{r} = f(r, U_y, U_x, \delta, F_x)
+\end{equation} 
+
+Can we do this? Predict just one of the states $\dot{U_y}$ or $\dot{r}$ from the net. 
+
+
+\begin{equation}
+\dot{r} = f(r, U_y, U_x, \delta, F_x)
+\end{equation} 
+
+\begin{equation}
+\dot{U_y} = f(r, U_y, U_x, \delta, F_x)
+\end{equation} 
+
+For $\dot{r}$, obtain by setting $\Delta \ddot{\Psi}$  to 0:
+
+\begin{align}
+\Delta \dot{\Psi} &= r - KU_x \\
+\Delta \ddot{\Psi} &= \dot{r} - K\dot{U_x} - \dot{K}U_x \\
+\dot{r}_{des} &= K\dot{U_x} + \dot{K}U_x
+\end{align}
+
+For $\dot{U_y}$, set $\ddot{e}$ to 0:
+
+\begin{align}
+\dot{e} &= U_y + U_x \Delta \Psi \\
+\ddot{e} &= \dot{U_y} + \dot{U_x}\Delta\Psi + U_x\Delta\dot{\Psi}\\
+\dot{U_y}_{des} &= - U_x(r-\kappa U_x) - \dot{U_x}\Delta\Psi
+\end{align}
+
+Then solve for $\delta$ through zero-finding. 
+
+
+
+\end{document}
+

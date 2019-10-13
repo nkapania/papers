@@ -1,0 +1,53 @@
+% Document settings
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{setspace}
+\usepackage{amsmath,amssymb,gensymb,epsfig, epstopdf}
+\usepackage{xcolor}
+\pagestyle{plain}
+\setlength\parindent{0pt}
+\setlength{\parskip}{1em}
+
+\begin{document}
+
+% Header
+\textbf{Nitin Kapania} \\
+\textbf{SciRob Intro - Outline} \\
+
+\begin{enumerate}
+	\item Autonomous vehicles rely on control systems to automate following of a desired trajectory. These control systems are presently designed around a physical model of the vehicle. 
+
+	\subitem Include references to several overview papers on path planning / control
+	for autonomous vehicles
+	
+	\subitem Control systems for autonomous vehicles currently rely on a  physics-based model either explicitly in the case of predictive control algorithms or implicitly for traditional feedforward-feedback architectures
+	
+	\subitem Control systems based on physical models have clear advantages and have demonstrated great performance under known driving conditions. 
+
+	\subitem Mention advantages of physics-based models: simplicity in terms of required parameters, intuition, and correctness from known first principles.  
+
+	\item However, physics-based models have several drawbacks, particularly when operating conditions change or when dynamics are difficult to model. 
+
+	\subitem Physics-based models are designed around a particular set of parameters and a particular operating condition. These can often change in safety critical situations. Provide example of car designed around asphalt that suddenly encounters a low-friction surface. 
+
+	\subitem Designer must explicitly decide about model complexity and manually encode logic for multiple operating conditions.  
+
+	\subitem Certain physics that are critical for control can be prohibitive to model given difficulty of estimating parameters or hard-to-model physics (e.g. effect of suspension dynamics at the handling limits)  
+
+	\item Given drawbacks of physics-based models, there has been increasing interest in developing data-driven models for automated systems. 
+
+	\subitem Reference prior art here - e.g. Punjani and Abbeel, Cole, Ghazizadeh, and papers that don't use neural networks (e.g. regression models, GPs, etc.)
+
+	\subitem Research with neural networks dates back to early 1990's, but  explosion of deep learning methods has created potential for models with even higher capacity
+
+	\item This paper contributes a novel neural network model for an automated vehicle. 
+
+	\subitem Describe contributions and differentiation from prior art 
+
+\end{enumerate}
+
+
+\end{document}
+
